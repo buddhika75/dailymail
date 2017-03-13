@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartmentEditDlg" widgetVar="DepartmentEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDepartmentTitle}">
+            <h:form id="DepartmentEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departmentController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDepartmentLabel_sname}" for="sname" />
+                        <p:inputText id="sname" value="#{departmentController.selected.sname}" title="#{bundle.EditDepartmentTitle_sname}" />
+                        <p:outputLabel value="#{bundle.EditDepartmentLabel_tname}" for="tname" />
+                        <p:inputText id="tname" value="#{departmentController.selected.tname}" title="#{bundle.EditDepartmentTitle_tname}" />
+                        <p:outputLabel value="#{bundle.EditDepartmentLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{departmentController.selected.name}" title="#{bundle.EditDepartmentTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditDepartmentLabel_institute}" for="institute" />
+                        <p:selectOneMenu id="institute" value="#{departmentController.selected.institute}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
+                                           var="instituteItem"
+                                           itemValue="#{instituteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDepartmentLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{departmentController.selected.id}" title="#{bundle.EditDepartmentTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departmentController.update}" value="#{bundle.Save}" update="display,:DepartmentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartmentEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DepartmentEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

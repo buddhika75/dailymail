@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstituteViewDlg" widgetVar="InstituteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInstituteTitle}">
+            <h:form id="InstituteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{instituteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewInstituteLabel_sname}"/>
+                        <h:outputText value="#{instituteController.selected.sname}" title="#{bundle.ViewInstituteTitle_sname}"/>
+                        <h:outputText value="#{bundle.ViewInstituteLabel_tname}"/>
+                        <h:outputText value="#{instituteController.selected.tname}" title="#{bundle.ViewInstituteTitle_tname}"/>
+                        <h:outputText value="#{bundle.ViewInstituteLabel_name}"/>
+                        <h:outputText value="#{instituteController.selected.name}" title="#{bundle.ViewInstituteTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewInstituteLabel_parentInstitute}"/>
+                        <h:outputText value="#{instituteController.selected.parentInstitute}" title="#{bundle.ViewInstituteTitle_parentInstitute}"/>
+                        <h:outputText value="#{bundle.ViewInstituteLabel_id}"/>
+                        <h:outputText value="#{instituteController.selected.id}" title="#{bundle.ViewInstituteTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="InstituteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

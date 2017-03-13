@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MailEditDlg" widgetVar="MailEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMailTitle}">
+            <h:form id="MailEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{mailController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMailLabel_receivedDate}" for="receivedDate" />
+                        <p:calendar id="receivedDate" pattern="MM/dd/yyyy" value="#{mailController.selected.receivedDate}" title="#{bundle.EditMailTitle_receivedDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMailLabel_letterDate}" for="letterDate" />
+                        <p:calendar id="letterDate" pattern="MM/dd/yyyy" value="#{mailController.selected.letterDate}" title="#{bundle.EditMailTitle_letterDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMailLabel_registered}" for="registered" />
+                        <p:selectBooleanCheckbox id="registered" value="#{mailController.selected.registered}" />
+                        <p:outputLabel value="#{bundle.EditMailLabel_registeredNumber}" for="registeredNumber" />
+                        <p:inputText id="registeredNumber" value="#{mailController.selected.registeredNumber}" title="#{bundle.EditMailTitle_registeredNumber}" />
+                        <p:outputLabel value="#{bundle.EditMailLabel_sendingInstitute}" for="sendingInstitute" />
+                        <p:selectOneMenu id="sendingInstitute" value="#{mailController.selected.sendingInstitute}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
+                                           var="sendingInstituteItem"
+                                           itemValue="#{sendingInstituteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMailLabel_sendingNumber}" for="sendingNumber" />
+                        <p:inputText id="sendingNumber" value="#{mailController.selected.sendingNumber}" title="#{bundle.EditMailTitle_sendingNumber}" />
+                        <p:outputLabel value="#{bundle.EditMailLabel_topic}" for="topic" />
+                        <p:inputText id="topic" value="#{mailController.selected.topic}" title="#{bundle.EditMailTitle_topic}" />
+                        <p:outputLabel value="#{bundle.EditMailLabel_executiveOfficer}" for="executiveOfficer" />
+                        <p:selectOneMenu id="executiveOfficer" value="#{mailController.selected.executiveOfficer}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
+                                           var="executiveOfficerItem"
+                                           itemValue="#{executiveOfficerItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMailLabel_departmentHead}" for="departmentHead" />
+                        <p:selectOneMenu id="departmentHead" value="#{mailController.selected.departmentHead}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
+                                           var="departmentHeadItem"
+                                           itemValue="#{departmentHeadItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMailLabel_subjectUser}" for="subjectUser" />
+                        <p:selectOneMenu id="subjectUser" value="#{mailController.selected.subjectUser}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
+                                           var="subjectUserItem"
+                                           itemValue="#{subjectUserItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMailLabel_subject}" for="subject" />
+                        <p:selectOneMenu id="subject" value="#{mailController.selected.subject}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"
+                                           var="subjectItem"
+                                           itemValue="#{subjectItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMailLabel_addedUser}" for="addedUser" />
+                        <p:selectOneMenu id="addedUser" value="#{mailController.selected.addedUser}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
+                                           var="addedUserItem"
+                                           itemValue="#{addedUserItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMailLabel_addedDate}" for="addedDate" />
+                        <p:calendar id="addedDate" pattern="MM/dd/yyyy" value="#{mailController.selected.addedDate}" title="#{bundle.EditMailTitle_addedDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMailLabel_addedTime}" for="addedTime" />
+                        <p:calendar id="addedTime" pattern="MM/dd/yyyy HH:mm:ss" value="#{mailController.selected.addedTime}" title="#{bundle.EditMailTitle_addedTime}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMailLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{mailController.selected.id}" title="#{bundle.EditMailTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{mailController.update}" value="#{bundle.Save}" update="display,:MailListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MailEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MailEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

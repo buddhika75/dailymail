@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubjectViewDlg" widgetVar="SubjectViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSubjectTitle}">
+            <h:form id="SubjectViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{subjectController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSubjectLabel_name}"/>
+                        <h:outputText value="#{subjectController.selected.name}" title="#{bundle.ViewSubjectTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewSubjectLabel_sname}"/>
+                        <h:outputText value="#{subjectController.selected.sname}" title="#{bundle.ViewSubjectTitle_sname}"/>
+                        <h:outputText value="#{bundle.ViewSubjectLabel_tname}"/>
+                        <h:outputText value="#{subjectController.selected.tname}" title="#{bundle.ViewSubjectTitle_tname}"/>
+                        <h:outputText value="#{bundle.ViewSubjectLabel_code}"/>
+                        <h:outputText value="#{subjectController.selected.code}" title="#{bundle.ViewSubjectTitle_code}"/>
+                        <h:outputText value="#{bundle.ViewSubjectLabel_department}"/>
+                        <h:outputText value="#{subjectController.selected.department}" title="#{bundle.ViewSubjectTitle_department}"/>
+                        <h:outputText value="#{bundle.ViewSubjectLabel_institute}"/>
+                        <h:outputText value="#{subjectController.selected.institute}" title="#{bundle.ViewSubjectTitle_institute}"/>
+                        <h:outputText value="#{bundle.ViewSubjectLabel_webUser}"/>
+                        <h:outputText value="#{subjectController.selected.webUser}" title="#{bundle.ViewSubjectTitle_webUser}"/>
+                        <h:outputText value="#{bundle.ViewSubjectLabel_id}"/>
+                        <h:outputText value="#{subjectController.selected.id}" title="#{bundle.ViewSubjectTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SubjectViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

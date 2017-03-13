@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMailTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+                <h:form id="MailListForm">
+                    <p:panel header="#{bundle.ListMailTitle}">
+                        <p:dataTable id="datalist" value="#{mailController.items}" var="item"
+                            selectionMode="single" selection="#{mailController.selected}"
+                            paginator="true"
+                            rowKey="#{item.id}"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_receivedDate}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.receivedDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_letterDate}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.letterDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_registered}"/>
+                                </f:facet>
+                                <p:selectBooleanCheckbox value="#{item.registered}" disabled="true"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_registeredNumber}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.registeredNumber}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_sendingInstitute}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sendingInstitute}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_sendingNumber}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sendingNumber}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_topic}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.topic}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_executiveOfficer}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.executiveOfficer}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_departmentHead}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.departmentHead}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_subjectUser}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.subjectUser}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_subject}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.subject}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_addedUser}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.addedUser}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_addedDate}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.addedDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_addedTime}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.addedTime}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMailTitle_id}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{mailController.prepareCreate}" update=":MailCreateForm" oncomplete="PF('MailCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MailViewForm" oncomplete="PF('MailViewDialog').show()" disabled="#{empty mailController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MailEditForm" oncomplete="PF('MailEditDialog').show()" disabled="#{empty mailController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{mailController.destroy}" update=":growl,datalist" disabled="#{empty mailController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

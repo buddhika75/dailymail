@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MailViewDlg" widgetVar="MailViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMailTitle}">
+            <h:form id="MailViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{mailController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMailLabel_receivedDate}"/>
+                        <h:outputText value="#{mailController.selected.receivedDate}" title="#{bundle.ViewMailTitle_receivedDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMailLabel_letterDate}"/>
+                        <h:outputText value="#{mailController.selected.letterDate}" title="#{bundle.ViewMailTitle_letterDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMailLabel_registered}"/>
+                        <p:selectBooleanCheckbox value="#{mailController.selected.registered}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_registeredNumber}"/>
+                        <h:outputText value="#{mailController.selected.registeredNumber}" title="#{bundle.ViewMailTitle_registeredNumber}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_sendingInstitute}"/>
+                        <h:outputText value="#{mailController.selected.sendingInstitute}" title="#{bundle.ViewMailTitle_sendingInstitute}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_sendingNumber}"/>
+                        <h:outputText value="#{mailController.selected.sendingNumber}" title="#{bundle.ViewMailTitle_sendingNumber}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_topic}"/>
+                        <h:outputText value="#{mailController.selected.topic}" title="#{bundle.ViewMailTitle_topic}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_executiveOfficer}"/>
+                        <h:outputText value="#{mailController.selected.executiveOfficer}" title="#{bundle.ViewMailTitle_executiveOfficer}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_departmentHead}"/>
+                        <h:outputText value="#{mailController.selected.departmentHead}" title="#{bundle.ViewMailTitle_departmentHead}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_subjectUser}"/>
+                        <h:outputText value="#{mailController.selected.subjectUser}" title="#{bundle.ViewMailTitle_subjectUser}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_subject}"/>
+                        <h:outputText value="#{mailController.selected.subject}" title="#{bundle.ViewMailTitle_subject}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_addedUser}"/>
+                        <h:outputText value="#{mailController.selected.addedUser}" title="#{bundle.ViewMailTitle_addedUser}"/>
+                        <h:outputText value="#{bundle.ViewMailLabel_addedDate}"/>
+                        <h:outputText value="#{mailController.selected.addedDate}" title="#{bundle.ViewMailTitle_addedDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMailLabel_addedTime}"/>
+                        <h:outputText value="#{mailController.selected.addedTime}" title="#{bundle.ViewMailTitle_addedTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMailLabel_id}"/>
+                        <h:outputText value="#{mailController.selected.id}" title="#{bundle.ViewMailTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MailViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
