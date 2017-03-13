@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template.xhtml">
+
+            <ui:define name="body">
+                <h:form id="MailCreateForm">
+                   
+                    <p:outputLabel value="Instituteion" ></p:outputLabel>
+                    <p:selectOneMenu value="#{mailController.institute}" >
+                        <f:selectItem itemLabel="Select Instituteion" ></f:selectItem>
+                        <f:selectItems value="#{instituteController.itemsAvailableSelectOne}" var="ins" itemLabel="#{ins.name}" itemValue="#{ins}" ></f:selectItems>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="From" ></p:outputLabel>
+                    <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                    <p:outputLabel value="To" ></p:outputLabel>
+                    <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                    <p:commandButton value="List" action="#{mailController.listInsMails()}" ajax="false" ></p:commandButton>
+                    
+                    <f:view>
+
+
+                        <h:form>
+                            <h1><h:outputText value="List"/></h1>
+                            <p:dataTable value="#{mailController.items}" var="item">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ToDepartment"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.toDepartment.name}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Received Date"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.receivedDate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Letter Date"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.letterDate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Registered"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.registered}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Registered Number"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.registeredNumber}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="SendingInstitute"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.sendingInstitute}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="SendingNumber"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.sendingNumber}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Topic"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.topic}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Executive Officer"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.executiveOfficer}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Department Head"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.departmentHead}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </f:view>
+
+                    
+                    
+                    
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

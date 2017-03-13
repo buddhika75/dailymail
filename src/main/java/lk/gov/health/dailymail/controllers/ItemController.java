@@ -1,5 +1,6 @@
 package lk.gov.health.dailymail.controllers;
 
+import lk.gov.health.dailymail.entity.Item;
 import lk.gov.health.dailymail.controllers.util.JsfUtil;
 import lk.gov.health.dailymail.controllers.util.JsfUtil.PersistAction;
 import lk.gov.health.dailymail.facades.ItemFacade;
@@ -11,14 +12,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 
-@ManagedBean(name = "itemController")
+@Named
 @SessionScoped
 public class ItemController implements Serializable {
 

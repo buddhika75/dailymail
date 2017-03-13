@@ -21,51 +21,23 @@
                         <p:outputLabel value="#{bundle.CreateMailLabel_registeredNumber}" for="registeredNumber" />
                         <p:inputText id="registeredNumber" value="#{mailController.selected.registeredNumber}" title="#{bundle.CreateMailTitle_registeredNumber}" />
                         <p:outputLabel value="#{bundle.CreateMailLabel_sendingInstitute}" for="sendingInstitute" />
-                        <p:selectOneMenu id="sendingInstitute" value="#{mailController.selected.sendingInstitute}" >
+                        <p:selectOneMenu id="sendingInstitute" value="#{mailController.selected.toInstitute}" >
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="sendingInstituteItem"
+                                           itemLabel="#{sendingInstituteItem.name}"
                                            itemValue="#{sendingInstituteItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateMailLabel_sendingNumber}" for="sendingNumber" />
                         <p:inputText id="sendingNumber" value="#{mailController.selected.sendingNumber}" title="#{bundle.CreateMailTitle_sendingNumber}" />
                         <p:outputLabel value="#{bundle.CreateMailLabel_topic}" for="topic" />
                         <p:inputText id="topic" value="#{mailController.selected.topic}" title="#{bundle.CreateMailTitle_topic}" />
-                        <p:outputLabel value="#{bundle.CreateMailLabel_executiveOfficer}" for="executiveOfficer" />
-                        <p:selectOneMenu id="executiveOfficer" value="#{mailController.selected.executiveOfficer}" >
-                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
-                                           var="executiveOfficerItem"
-                                           itemValue="#{executiveOfficerItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMailLabel_departmentHead}" for="departmentHead" />
-                        <p:selectOneMenu id="departmentHead" value="#{mailController.selected.departmentHead}" >
-                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
-                                           var="departmentHeadItem"
-                                           itemValue="#{departmentHeadItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMailLabel_subjectUser}" for="subjectUser" />
-                        <p:selectOneMenu id="subjectUser" value="#{mailController.selected.subjectUser}" >
-                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
-                                           var="subjectUserItem"
-                                           itemValue="#{subjectUserItem}"/>
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateMailLabel_subject}" for="subject" />
-                        <p:selectOneMenu id="subject" value="#{mailController.selected.subject}" >
-                            <f:selectItems value="#{subjectController.itemsAvailableSelectOne}"
+                        <p:selectOneMenu id="subject" value="#{mailController.selected.toDepartment}" >
+                            <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
                                            var="subjectItem"
-                                           itemValue="#{subjectItem}"/>
+                                           itemValue="#{subjectItem}"
+                                           itemLabel="#{subjectItem.name}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMailLabel_addedUser}" for="addedUser" />
-                        <p:selectOneMenu id="addedUser" value="#{mailController.selected.addedUser}" >
-                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
-                                           var="addedUserItem"
-                                           itemValue="#{addedUserItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMailLabel_addedDate}" for="addedDate" />
-                        <p:calendar id="addedDate" pattern="MM/dd/yyyy" value="#{mailController.selected.addedDate}" title="#{bundle.EditMailTitle_addedDate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateMailLabel_addedTime}" for="addedTime" />
-                        <p:calendar id="addedTime" pattern="MM/dd/yyyy HH:mm:ss" value="#{mailController.selected.addedTime}" title="#{bundle.EditMailTitle_addedTime}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateMailLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{mailController.selected.id}" title="#{bundle.CreateMailTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{mailController.create}" value="#{bundle.Save}" update="display,:MailListForm:datalist,:growl" oncomplete="handleSubmit(args,'MailCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MailCreateDialog.hide()"/>

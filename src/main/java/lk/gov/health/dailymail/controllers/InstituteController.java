@@ -6,20 +6,23 @@ import lk.gov.health.dailymail.controllers.util.JsfUtil.PersistAction;
 import lk.gov.health.dailymail.facades.InstituteFacade;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 
-@ManagedBean(name = "instituteController")
+@Named
 @SessionScoped
 public class InstituteController implements Serializable {
 
@@ -115,6 +118,15 @@ public class InstituteController implements Serializable {
 
     public List<Institute> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public List<Institute> completeInstitutes(String qry) {
+        String j = "Select i from Institute i "
+                + " where upper(i.name) like :n or upper(i.sname) like :n or upper(i.tname) like :n "
+                + " order by i.name";
+        Map m = new HashMap();
+        m.put("n", "%"+ qry.toUpperCase() + "%");
+        return getFacade().findBySQL(j, m);
     }
 
     @FacesConverter(forClass = Institute.class)

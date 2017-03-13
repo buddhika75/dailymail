@@ -8,7 +8,7 @@ package lk.gov.health.dailymail.facades;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import lk.gov.health.dailymail.controllers.Item;
+import lk.gov.health.dailymail.entity.Item;
 
 /**
  *

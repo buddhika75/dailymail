@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import lk.gov.health.dailymail.controllers.Item;
 
 /**
  *
@@ -36,6 +35,29 @@ public class WebUser implements Serializable {
     @ManyToOne
     Item position;
     boolean executiveOfficer;
+    @ManyToOne
+    Institute institute;
+    @ManyToOne
+    Department department;
+
+    public Institute getInstitute() {
+        return institute;
+    }
+
+    public void setInstitute(Institute institute) {
+        this.institute = institute;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+    
+    
+    
 
     public String getSname() {
         return sname;

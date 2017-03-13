@@ -20,8 +20,17 @@
                         <p:inputText id="name" value="#{webUserController.selected.name}" title="#{bundle.CreateWebUserTitle_name}" />
                         <p:outputLabel value="#{bundle.CreateWebUserLabel_email}" for="email" />
                         <p:inputText id="email" value="#{webUserController.selected.email}" title="#{bundle.CreateWebUserTitle_email}" />
-                        <p:outputLabel value="#{bundle.CreateWebUserLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{webUserController.selected.id}" title="#{bundle.CreateWebUserTitle_id}" />
+                        <p:outputLabel value="Institute"  />
+                        <p:selectOneMenu value="#{webUserController.selected.institute}" >
+                            <f:selectItem itemLabel="Select Institute" ></f:selectItem>
+                            <f:selectItems value="#{instituteController.itemsAvailableSelectOne}" var="d" itemLabel="#{d.name}" itemValue="#{d}" ></f:selectItems>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Department"  />
+                        <p:selectOneMenu value="#{webUserController.selected.department}" >
+                            <f:selectItem itemLabel="Select Department" ></f:selectItem>
+                            <f:selectItems value="#{departmentController.itemsAvailableSelectOne}" var="d" itemLabel="#{d.name}" itemValue="#{d}" ></f:selectItems>
+                        </p:selectOneMenu>
+                    
                     </p:panelGrid>
                     <p:commandButton actionListener="#{webUserController.create}" value="#{bundle.Save}" update="display,:WebUserListForm:datalist,:growl" oncomplete="handleSubmit(args,'WebUserCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="WebUserCreateDialog.hide()"/>

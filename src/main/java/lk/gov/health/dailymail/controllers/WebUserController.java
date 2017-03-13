@@ -14,32 +14,32 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 
-
-@ManagedBean(name="webUserController")
+@Named
 @SessionScoped
 public class WebUserController implements Serializable {
 
-
-    @EJB private lk.gov.health.dailymail.facades.WebUserFacade ejbFacade;
+    @EJB
+    private lk.gov.health.dailymail.facades.WebUserFacade ejbFacade;
     private List<WebUser> items = null;
     private WebUser selected;
-WebUser loggedUser;
+    WebUser loggedUser;
     String userName;
     String password;
 
     public String login() {
-        if (userName.trim().equals("")) {
+        if (userName == null || userName.trim().equals("")) {
             JsfUtil.addErrorMessage("Enter a Username");
             return "";
         }
-        if (password.trim().equals("")) {
+        if (password == null || password.trim().equals("")) {
             JsfUtil.addErrorMessage("Enter a Username");
             return "";
         }
@@ -48,8 +48,8 @@ WebUser loggedUser;
         m.put("un", userName);
         m.put("pw", password);
         loggedUser = getFacade().findFirstBySQL(j, m);
-        if(loggedUser==null){
-            if(getFacade().count()==0){
+        if (loggedUser == null) {
+            if (getFacade().count() == 0) {
                 loggedUser = new WebUser();
                 loggedUser.setActive(true);
                 loggedUser.setEmail("buddhika.ari@gmail.com");
@@ -92,8 +92,6 @@ WebUser loggedUser;
         this.password = password;
     }
 
-    
-    
     public WebUserController() {
     }
 
@@ -175,7 +173,6 @@ WebUser loggedUser;
         }
     }
 
-
     public List<WebUser> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -184,7 +181,7 @@ WebUser loggedUser;
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=WebUser.class)
+    @FacesConverter(forClass = WebUser.class)
     public static class WebUserControllerConverter implements Converter {
 
         @Override
@@ -192,7 +189,7 @@ WebUser loggedUser;
             if (value == null || value.length() == 0) {
                 return null;
             }
-            WebUserController controller = (WebUserController)facesContext.getApplication().getELResolver().
+            WebUserController controller = (WebUserController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "webUserController");
             return controller.getFacade().find(getKey(value));
         }
