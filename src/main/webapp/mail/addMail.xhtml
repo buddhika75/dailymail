@@ -8,16 +8,33 @@
 
     <body>
 
-        <ui:composition template="./../template.xhtml">
+        <ui:composition template="/template.xhtml">
 
             <ui:define name="body">
                 <h:form id="MailCreateForm">
-                    <p:panel header="Add New Mail" >
-                        <f:facet name="header" >
-                            <p:outputLabel value="Add New Mail" ></p:outputLabel>
-                        </f:facet>
-                        
-                        <h:panelGroup id="display">
+                    
+                        <p:panel header="Add New Mail" style="width: 50%;margin: auto; margin-top: 10px;"  >
+                            <f:facet name="header" >
+                                <p:outputLabel value="Add New Mail" ></p:outputLabel>
+                                <br/>
+                                <p:autoComplete value="#{mailController.selected.toInstitute}"
+                                                var="ii" itemLabel="#{ii.name}" itemValue="#{ii}" completeMethod="#{instituteController.completeInstitutes}"
+                                                forceSelection="true" size="50" >
+                                    <p:column >
+                                        <p:outputLabel value="#{i.name}" ></p:outputLabel>
+                                    </p:column>
+                                    <p:column >
+                                        <p:outputLabel value="#{i.sname}" ></p:outputLabel>
+                                    </p:column>
+                                    <p:column >
+                                        <p:outputLabel value="#{i.tname}" ></p:outputLabel>
+                                    </p:column>
+                                </p:autoComplete>
+                                <br/>
+                                <p:commandButton action="#{mailController.saveNewMail()}" value="#{bundle.Save}" ajax="false" />
+                            </f:facet>
+
+
                             <p:panelGrid columns="2" rendered="#{mailController.selected != null}">
                                 <p:outputLabel value="#{bundle.CreateMailLabel_receivedDate}" for="receivedDate" />
                                 <p:calendar id="receivedDate" pattern="MM/dd/yyyy" value="#{mailController.selected.receivedDate}" title="#{bundle.EditMailTitle_receivedDate}"  showOn="button"/>
@@ -29,8 +46,9 @@
                                 <p:inputText id="registeredNumber" value="#{mailController.selected.registeredNumber}" title="#{bundle.CreateMailTitle_registeredNumber}" />
                                 <p:outputLabel value="#{bundle.CreateMailLabel_sendingInstitute}" for="sendingInstitute" />
                                 <p:autoComplete id="sendingInstitute" value="#{mailController.selected.sendingInstitute}"
-                                                var="i" itemLabel="#{i.name}" completeMethod="#{instituteController.completeInstitutes}"
-                                                forceSelection="true"   >
+                                                var="i" itemLabel="#{i.name}" itemValue="#{i}" 
+                                                completeMethod="#{instituteController.completeInstitutes}"
+                                                forceSelection="true"  size="50"  >
                                     <p:column >
                                         <p:outputLabel value="#{i.name}" ></p:outputLabel>
                                     </p:column>
@@ -42,26 +60,23 @@
                                     </p:column>
                                 </p:autoComplete>
                                 <p:outputLabel value="#{bundle.CreateMailLabel_sendingNumber}" for="sendingNumber" />
-                                <p:inputText id="sendingNumber" value="#{mailController.selected.sendingNumber}" title="#{bundle.CreateMailTitle_sendingNumber}" />
+                                <p:inputText id="sendingNumber" value="#{mailController.selected.sendingNumber}"  styleClass="longText"  title="#{bundle.CreateMailTitle_sendingNumber}" />
                                 <p:outputLabel value="#{bundle.CreateMailLabel_topic}" for="topic" />
-                                <p:inputText id="topic" value="#{mailController.selected.topic}" title="#{bundle.CreateMailTitle_topic}" />
+                                <p:inputText id="topic" value="#{mailController.selected.topic}"  styleClass="longText"  title="#{bundle.CreateMailTitle_topic}" />
+
+
                                 <p:outputLabel value="#{bundle.CreateMailLabel_subject}"  />
-                                <p:selectOneMenu value="#{mailController.selected.toInstitute}" >
-                                    <f:selectItems value="#{instituteController.items}" var="ins" itemLabel="#{ins.name}" itemValue="#{ins}" ></f:selectItems>
-                                </p:selectOneMenu>
-                                <p:outputLabel value="#{bundle.CreateMailLabel_subject}"  />
-                                <p:selectOneMenu value="#{mailController.selected.toDepartment}" >
-                                    <f:selectItem itemLabel="Select Unit" ></f:selectItem>
-                                    <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
+                                <p:selectOneButton value="#{mailController.selected.toDepartment}"  >
+                                    <f:selectItems value="#{mailController.myDepartnments}"
                                                    var="subjectItem"
                                                    itemValue="#{subjectItem}"
                                                    itemLabel="#{subjectItem.name}"/>
-                                </p:selectOneMenu>
+                                </p:selectOneButton>
                             </p:panelGrid>
-                            <p:commandButton action="#{mailController.saveNewMail()}" value="#{bundle.Save}" ajax="false" />
-                            <p:commandButton value="#{bundle.Cancel}" ajax="false"/>
-                        </h:panelGroup>
-                    </p:panel>
+
+
+                        </p:panel>
+                    
                 </h:form>
 
             </ui:define>

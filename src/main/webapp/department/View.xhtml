@@ -12,16 +12,14 @@
             <h:form id="DepartmentViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{departmentController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDepartmentLabel_name}"/>
+                        <h:outputText value="#{departmentController.selected.name}" title="#{bundle.ViewDepartmentTitle_name}"/>
                         <h:outputText value="#{bundle.ViewDepartmentLabel_sname}"/>
                         <h:outputText value="#{departmentController.selected.sname}" title="#{bundle.ViewDepartmentTitle_sname}"/>
                         <h:outputText value="#{bundle.ViewDepartmentLabel_tname}"/>
                         <h:outputText value="#{departmentController.selected.tname}" title="#{bundle.ViewDepartmentTitle_tname}"/>
-                        <h:outputText value="#{bundle.ViewDepartmentLabel_name}"/>
-                        <h:outputText value="#{departmentController.selected.name}" title="#{bundle.ViewDepartmentTitle_name}"/>
                         <h:outputText value="#{bundle.ViewDepartmentLabel_institute}"/>
-                        <h:outputText value="#{departmentController.selected.institute}" title="#{bundle.ViewDepartmentTitle_institute}"/>
-                        <h:outputText value="#{bundle.ViewDepartmentLabel_id}"/>
-                        <h:outputText value="#{departmentController.selected.id}" title="#{bundle.ViewDepartmentTitle_id}"/>
+                        <h:outputText value="#{departmentController.selected.institute.name}" title="#{bundle.ViewDepartmentTitle_institute}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="DepartmentViewDialog.hide()"/>
                 </h:panelGroup>

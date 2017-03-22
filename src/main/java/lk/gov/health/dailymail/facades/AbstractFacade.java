@@ -98,6 +98,27 @@ public abstract class AbstractFacade<T> {
         return qry.getResultList();
     }
 
+    public List<T> findBySQL(String temSQL, Map<String, Object> parameters, int maxResultsCount) {
+        TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
+        qry.setMaxResults(maxResultsCount);
+        Set s = parameters.entrySet();
+        Iterator it = s.iterator();
+        while (it.hasNext()) {
+            Map.Entry m = (Map.Entry) it.next();
+            String pPara = (String) m.getKey();
+            if (m.getValue() instanceof Date) {
+                Date pVal = (Date) m.getValue();
+                qry.setParameter(pPara, pVal, TemporalType.DATE);
+                System.out.println("Parameter " + pPara + "\tVal" + pVal);
+            } else {
+                Object pVal = (Object) m.getValue();
+                qry.setParameter(pPara, pVal);
+                System.out.println("Parameter " + pPara + "\tVal" + pVal);
+            }
+        }
+        return qry.getResultList();
+    }
+    
     public List<T> findBySQL(String temSQL, Map<String, Object> parameters) {
         TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
         Set s = parameters.entrySet();

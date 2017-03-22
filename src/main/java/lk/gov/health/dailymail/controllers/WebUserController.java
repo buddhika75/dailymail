@@ -21,8 +21,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
+import lk.gov.health.dailymail.entity.Institute;
 
-@Named
+@Named(value = "webUserController")
 @SessionScoped
 public class WebUserController implements Serializable {
 
@@ -33,7 +34,18 @@ public class WebUserController implements Serializable {
     WebUser loggedUser;
     String userName;
     String password;
+    Institute loggedInstitute;
 
+    public Institute getLoggedInstitute() {
+        return loggedInstitute;
+    }
+
+    public void setLoggedInstitute(Institute loggedInstitute) {
+        this.loggedInstitute = loggedInstitute;
+    }
+
+    
+    
     public String login() {
         if (userName == null || userName.trim().equals("")) {
             JsfUtil.addErrorMessage("Enter a Username");
@@ -57,6 +69,7 @@ public class WebUserController implements Serializable {
                 loggedUser.setName("Buddhika");
                 loggedUser.setPassword("b");
                 loggedUser.setUserName("b");
+                loggedInstitute = loggedUser.getInstitute();
                 getFacade().create(loggedUser);
             }
         }
@@ -65,6 +78,7 @@ public class WebUserController implements Serializable {
 
     public String logOut() {
         loggedUser = null;
+        loggedInstitute=null;
         return "";
     }
 

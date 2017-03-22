@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,7 +21,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 
-@Named
+@Named(value = "instituteController")
 @SessionScoped
 public class InstituteController implements Serializable {
 
@@ -30,9 +29,58 @@ public class InstituteController implements Serializable {
     private lk.gov.health.dailymail.facades.InstituteFacade ejbFacade;
     private List<Institute> items = null;
     private Institute selected;
+    String bulkText;
+    Institute bulkParentInstitution;
+    
+    public void addBulkInstitutions() {
+        if (bulkParentInstitution == null) {
+            JsfUtil.addErrorMessage("Parent Institution?");
+            return;
+        }
+        if (bulkText.trim().equals("")) {
+            JsfUtil.addErrorMessage("Institutions?");
+            return;
+        }
+        String lines[] = bulkText.split("\\r?\\n");
+        int i =0;
+        for (String line : lines) {
+            if (!line.trim().equals("")) {
+                i++;
+                Institute ins = new Institute();
+                ins.setName(line);
+                ins.setSname(line);
+                ins.setTname(line);
+                ins.setParentInstitute(bulkParentInstitution);
+                getFacade().create(ins);
+            }
+        }
 
+        bulkText = "";
+        bulkParentInstitution = null;
+        JsfUtil.addSuccessMessage(i + " institutions added.");
+    }
+
+    
     public InstituteController() {
     }
+
+    public String getBulkText() {
+        return bulkText;
+    }
+
+    public void setBulkText(String bulkText) {
+        this.bulkText = bulkText;
+    }
+
+    public Institute getBulkParentInstitution() {
+        return bulkParentInstitution;
+    }
+
+    public void setBulkParentInstitution(Institute bulkParentInstitution) {
+        this.bulkParentInstitution = bulkParentInstitution;
+    }
+    
+    
 
     public Institute getSelected() {
         return selected;
@@ -126,7 +174,7 @@ public class InstituteController implements Serializable {
                 + " order by i.name";
         Map m = new HashMap();
         m.put("n", "%"+ qry.toUpperCase() + "%");
-        return getFacade().findBySQL(j, m);
+        return getFacade().findBySQL(j, m, 15);
     }
 
     @FacesConverter(forClass = Institute.class)

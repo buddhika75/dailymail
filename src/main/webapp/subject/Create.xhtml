@@ -24,22 +24,20 @@
                         <p:selectOneMenu id="department" value="#{subjectController.selected.department}" >
                             <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
                                            var="departmentItem"
-                                           itemValue="#{departmentItem}"/>
+                                           itemValue="#{departmentItem}" itemLabel="#{departmentItem.name}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateSubjectLabel_institute}" for="institute" />
                         <p:selectOneMenu id="institute" value="#{subjectController.selected.institute}" >
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
-                                           var="instituteItem"
+                                           var="instituteItem" itemLabel="#{instituteItem.name}"
                                            itemValue="#{instituteItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateSubjectLabel_webUser}" for="webUser" />
                         <p:selectOneMenu id="webUser" value="#{subjectController.selected.webUser}" >
                             <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
-                                           var="webUserItem"
+                                           var="webUserItem" itemLabel="#{webUserItem.name}"
                                            itemValue="#{webUserItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateSubjectLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{subjectController.selected.id}" title="#{bundle.CreateSubjectTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{subjectController.create}" value="#{bundle.Save}" update="display,:SubjectListForm:datalist,:growl" oncomplete="handleSubmit(args,'SubjectCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="SubjectCreateDialog.hide()"/>

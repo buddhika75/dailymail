@@ -6,6 +6,7 @@ import lk.gov.health.dailymail.controllers.util.JsfUtil.PersistAction;
 import lk.gov.health.dailymail.facades.MailFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,8 +25,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lk.gov.health.dailymail.entity.Department;
 import lk.gov.health.dailymail.entity.Institute;
+import lk.gov.health.dailymail.entity.Subject;
+import lk.gov.health.dailymail.facades.DepartmentFacade;
+import lk.gov.health.dailymail.facades.SubjectFacade;
 
-@Named
+@Named(value = "mailController")
 @SessionScoped
 public class MailController implements Serializable {
 
@@ -33,16 +37,81 @@ public class MailController implements Serializable {
     WebUserController webUserController;
     @EJB
     private lk.gov.health.dailymail.facades.MailFacade ejbFacade;
+    @EJB
+    SubjectFacade subjectFaceFacade;
+    @EJB
+    DepartmentFacade departmentFacade;
+
     private List<Mail> items = null;
+    private List<Mail> selectedItems = null;
     private Mail selected;
 
     Date fromDate;
     Date toDate;
     Institute institute;
     Department department;
+    Subject subject;
 
     boolean fixeReceivedDate;
     Date fixedReceivedDate;
+
+    List<Subject> deptSubjects;
+
+    List<Department> myDepartnments = null;
+
+    public List<Department> getMyDepartnments() {
+        String j = "select d from Department d "
+                + " where d.institute=:ins";
+        Map m = new HashMap();
+        m.put("ins", institute);
+        myDepartnments = getFacade().findBySQL(j, m);
+        return myDepartnments;
+    }
+
+    public String toAssignMailsToSubjects() {
+        selectedItems = new ArrayList<Mail>();
+        return "/mail/assign_subjects";
+    }
+
+    public void assignMailsToSubject() {
+        for (Mail m : selectedItems) {
+            m.setSubject(subject);
+            getFacade().edit(m);
+        }
+    }
+
+    public List<Subject> getDeptSubjects() {
+        String j = "select s from Subject s "
+                + " where s.department=:dep";
+        Map m = new HashMap();
+        m.put("dep", department);
+        deptSubjects = getSubjectFaceFacade().findBySQL(j, m);
+        return deptSubjects;
+    }
+
+    public List<Mail> getSelectedItems() {
+        return selectedItems;
+    }
+
+    public void setSelectedItems(List<Mail> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public void setDeptSubjects(List<Subject> deptSubjects) {
+        this.deptSubjects = deptSubjects;
+    }
+
+    public SubjectFacade getSubjectFaceFacade() {
+        return subjectFaceFacade;
+    }
 
     public String listInsMails() {
         String j;
@@ -62,14 +131,45 @@ public class MailController implements Serializable {
         String j;
         j = "select m from Mail m "
                 + " where m.receivedDate between :fd and :td"
-                + " and m.toInstitute=:ins"
+                + " and m.toDepartment=:ins"
                 + " order by m.id";
         Map m = new HashMap();
-        m.put("ins", institute);
+        m.put("ins", department);
         m.put("fd", fromDate);
         m.put("td", toDate);
         items = getFacade().findBySQL(j, m);
         return "/mail/depMails";
+
+    }
+
+    public String listUnassignedDeptMails() {
+        String j;
+        j = "select m from Mail m "
+                + " where m.receivedDate between :fd and :td"
+                + " and m.toDepartment=:ins "
+                + " and m.subject is null "
+                + " order by m.id";
+        Map m = new HashMap();
+        m.put("ins", department);
+        m.put("fd", fromDate);
+        m.put("td", toDate);
+        items = getFacade().findBySQL(j, m);
+        return "/mail/assign_subjects";
+
+    }
+    
+    public String listUnassignedAndAssignedDeptMails() {
+        String j;
+        j = "select m from Mail m "
+                + " where m.receivedDate between :fd and :td"
+                + " and m.toDepartment=:ins "
+                + " order by m.id";
+        Map m = new HashMap();
+        m.put("ins", department);
+        m.put("fd", fromDate);
+        m.put("td", toDate);
+        items = getFacade().findBySQL(j, m);
+        return "/mail/assign_subjects";
 
     }
 
@@ -81,6 +181,9 @@ public class MailController implements Serializable {
     }
 
     public Date getFromDate() {
+        if (fromDate == null) {
+            fromDate = new Date();
+        }
         return fromDate;
     }
 
@@ -89,6 +192,9 @@ public class MailController implements Serializable {
     }
 
     public Date getToDate() {
+        if (toDate == null) {
+            toDate = new Date();
+        }
         return toDate;
     }
 
@@ -114,12 +220,15 @@ public class MailController implements Serializable {
 
     public String toAddNewMail() {
         selected = new Mail();
+
         selected.setLetterDate(new Date());
         selected.setReceivedDate(new Date());
         if (getWebUserController().getLoggedUser() != null) {
             System.out.println("webUserController.loggedUser = " + getWebUserController().getLoggedUser());
             selected.setToInstitute(getWebUserController().getLoggedUser().getInstitute());
-        }else{
+            institute = selected.getToInstitute();
+        } else {
+            selected.setToInstitute(institute);
             System.out.println("Logged User is null");
         }
         return "/mail/addMail";
@@ -130,10 +239,15 @@ public class MailController implements Serializable {
             JsfUtil.addErrorMessage("Nothing to save");
             return "";
         }
+        if (selected.getToInstitute() == null) {
+            JsfUtil.addErrorMessage("Select Institute");
+            return "";
+        }
         selected.setAddedDate(new Date());
         selected.setAddedTime(new Date());
         selected.setAddedUser(webUserController.loggedUser);
         getFacade().create(selected);
+        institute = selected.getToInstitute();
         JsfUtil.addSuccessMessage("Letter Saved");
         return toAddNewMail();
     }
@@ -222,6 +336,10 @@ public class MailController implements Serializable {
 
     public List<Mail> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public DepartmentFacade getDepartmentFacade() {
+        return departmentFacade;
     }
 
     @FacesConverter(forClass = Mail.class)

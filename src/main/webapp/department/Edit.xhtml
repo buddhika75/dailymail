@@ -23,10 +23,8 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="instituteItem"
-                                           itemValue="#{instituteItem}"/>
+                                           itemValue="#{instituteItem}" itemLabel="#{instituteItem.name}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditDepartmentLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{departmentController.selected.id}" title="#{bundle.EditDepartmentTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departmentController.update}" value="#{bundle.Save}" update="display,:DepartmentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartmentEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DepartmentEditDialog.hide()"/>

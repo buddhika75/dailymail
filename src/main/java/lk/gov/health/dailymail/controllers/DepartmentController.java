@@ -6,28 +6,57 @@ import lk.gov.health.dailymail.controllers.util.JsfUtil.PersistAction;
 import lk.gov.health.dailymail.facades.DepartmentFacade;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.spi.Bean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.inject.Named;
+import lk.gov.health.dailymail.entity.Institute;
 
-@Named
+@Named(value = "departmentController")
 @SessionScoped
 public class DepartmentController implements Serializable {
 
     @EJB
     private lk.gov.health.dailymail.facades.DepartmentFacade ejbFacade;
+    @Inject
+    WebUserController webUserController;
+
     private List<Department> items = null;
     private Department selected;
+    List<Department> myDepartnments = null;
+
+
+    public List<Department> getMyDepartnments() {
+        Institute ins = webUserController.getLoggedInstitute();
+        System.out.println("ins = " + ins);
+        String j = "select d from Department d "
+                + " where d.institute=:ins";
+        Map m = new HashMap();
+        m.put("ins", ins);
+        myDepartnments = getFacade().findBySQL(j, m);
+        return myDepartnments;
+    }
+
+    public void setMyDepartnments(List<Department> myDepartnments) {
+        this.myDepartnments = myDepartnments;
+    }
+
+    public WebUserController getWebUserController() {
+        return webUserController;
+    }
 
     public DepartmentController() {
     }

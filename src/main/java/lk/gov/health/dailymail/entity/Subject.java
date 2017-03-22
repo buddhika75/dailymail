@@ -123,7 +123,7 @@ public class Subject implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.dailymail.entity.Subject[ id=" + id + " ]";
+        return name;
     }
     
 }

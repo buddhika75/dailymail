@@ -12,20 +12,20 @@
             <h:form id="InstituteCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{instituteController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateInstituteLabel_sname}" for="sname" />
-                        <p:inputText id="sname" value="#{instituteController.selected.sname}" title="#{bundle.CreateInstituteTitle_sname}" />
-                        <p:outputLabel value="#{bundle.CreateInstituteLabel_tname}" for="tname" />
-                        <p:inputText id="tname" value="#{instituteController.selected.tname}" title="#{bundle.CreateInstituteTitle_tname}" />
                         <p:outputLabel value="#{bundle.CreateInstituteLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{instituteController.selected.name}" title="#{bundle.CreateInstituteTitle_name}" />
+                        <p:inputText styleClass="longText" id="name" value="#{instituteController.selected.name}" title="#{bundle.CreateInstituteTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateInstituteLabel_sname}" for="sname" />
+                        <p:inputText  styleClass="longText" id="sname" value="#{instituteController.selected.sname}" title="#{bundle.CreateInstituteTitle_sname}" />
+                        <p:outputLabel value="#{bundle.CreateInstituteLabel_tname}" for="tname" />
+                        <p:inputText  styleClass="longText" id="tname" value="#{instituteController.selected.tname}" title="#{bundle.CreateInstituteTitle_tname}" />
                         <p:outputLabel value="#{bundle.CreateInstituteLabel_parentInstitute}" for="parentInstitute" />
-                        <p:selectOneMenu id="parentInstitute" value="#{instituteController.selected.parentInstitute}" >
+                        <p:selectOneMenu  styleClass="longText" id="parentInstitute" value="#{instituteController.selected.parentInstitute}" >
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="parentInstituteItem"
-                                           itemValue="#{parentInstituteItem}"/>
+                                           itemValue="#{parentInstituteItem}"
+                                           itemLabel="#{parentInstituteItem.name}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateInstituteLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{instituteController.selected.id}" title="#{bundle.CreateInstituteTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{instituteController.create}" value="#{bundle.Save}" update="display,:InstituteListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstituteCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="InstituteCreateDialog.hide()"/>

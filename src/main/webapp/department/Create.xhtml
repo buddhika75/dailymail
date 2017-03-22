@@ -12,20 +12,20 @@
             <h:form id="DepartmentCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{departmentController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDepartmentLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{departmentController.selected.name}" title="#{bundle.CreateDepartmentTitle_name}" />
+                        
                         <p:outputLabel value="#{bundle.CreateDepartmentLabel_sname}" for="sname" />
                         <p:inputText id="sname" value="#{departmentController.selected.sname}" title="#{bundle.CreateDepartmentTitle_sname}" />
                         <p:outputLabel value="#{bundle.CreateDepartmentLabel_tname}" for="tname" />
                         <p:inputText id="tname" value="#{departmentController.selected.tname}" title="#{bundle.CreateDepartmentTitle_tname}" />
-                        <p:outputLabel value="#{bundle.CreateDepartmentLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{departmentController.selected.name}" title="#{bundle.CreateDepartmentTitle_name}" />
                         <p:outputLabel value="#{bundle.CreateDepartmentLabel_institute}" for="institute" />
                         <p:selectOneMenu id="institute" value="#{departmentController.selected.institute}" >
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="instituteItem"
-                                           itemValue="#{instituteItem}"/>
+                                           itemValue="#{instituteItem}"
+                                           itemLabel="#{instituteItem.name}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDepartmentLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{departmentController.selected.id}" title="#{bundle.CreateDepartmentTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departmentController.create}" value="#{bundle.Save}" update="display,:DepartmentListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartmentCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DepartmentCreateDialog.hide()"/>

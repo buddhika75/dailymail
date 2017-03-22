@@ -8,6 +8,7 @@
     <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="main.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
 
@@ -24,12 +25,13 @@
                         <p:submenu label="Letters"  >
                             <p:menuitem ajax="false" value="Add Letter" action="#{mailController.toAddNewMail}" />
                             <p:menuitem value="Search Letters" action="#" />
-                            <p:menuitem value="Subject Letters" action="#" />
-                            <p:menuitem value="Department Letters" action="#" />
+                            <p:menuitem value="Assign Letters to Subjects" action="#{mailController.toAssignMailsToSubjects()}" />
+                            <p:menuitem value="Unit Letters" action="#{mailController.listDeptMails()}" />
                             <p:menuitem value="Institute Letters" action="#{mailController.listInsMails()}" />
                         </p:submenu>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Institute" outcome="/institute/List.xhtml" />
+                            <p:menuitem value="Add Several Institutes" outcome="/institute/institutions_bulk.xhtml" />
                             <p:menuitem value="Department" outcome="/department/List.xhtml" />
                             <p:menuitem value="Mail" outcome="/mail/List.xhtml" />
                             <p:menuitem value="Subject" outcome="/subject/List.xhtml" />
@@ -41,14 +43,21 @@
 
             <p:layoutUnit position="south" size="60">
                 <ui:insert name="footer">
-                    <h:panelGrid columns="2" >
-                        <p:outputLabel rendered="#{webUserController.loggedUser ne null}" value="You are logged as #{webUserController.loggedUser.name}" ></p:outputLabel>
-                        <p:outputLabel rendered="#{webUserController.loggedUser.institute ne null}" value=". #{webUserController.loggedUser.institute.name}" ></p:outputLabel>
-                        <h:form >
+                    <h:form >
+                        <h:panelGrid columns="4" >
+
+                            <p:outputLabel rendered="#{webUserController.loggedUser ne null}" value="You are logged as #{webUserController.loggedUser.name}" ></p:outputLabel>
+                            <p:outputLabel rendered="#{webUserController.loggedUser.institute ne null}" value=". #{webUserController.loggedUser.institute.name}" ></p:outputLabel>
+
                             <p:commandLink rendered="#{webUserController.loggedUser ne null}" value="Logout" ajax="false" action="#{webUserController.logOut()}" ></p:commandLink>
-                        </h:form>
-                        <p:outputLabel rendered="#{webUserController.loggedUser eq null}" value="Please login to continue" ></p:outputLabel>
-                    </h:panelGrid>
+
+                            <p:outputLabel rendered="#{webUserController.loggedUser eq null}" value="Please login to continue" ></p:outputLabel>
+
+                            #{webUserController.loggedInstitute}
+                            #{webUserController.loggedUser.institute}
+                            
+                        </h:panelGrid>
+                    </h:form>
                 </ui:insert>
             </p:layoutUnit>
 
@@ -93,7 +102,7 @@
 
                     </h:form>
                 </p:panel>
-                <h:panelGroup rendered="#{webUserController.loggedUser ne null}" >
+                <h:panelGroup rendered="#{webUserController.loggedUser ne null}" style="padding: 10px;" >
                     <ui:insert name="body"> </ui:insert>
                 </h:panelGroup>
 
