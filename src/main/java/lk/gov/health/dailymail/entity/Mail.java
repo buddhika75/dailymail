@@ -29,25 +29,30 @@ public class Mail implements Serializable {
     Date receivedDate;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date letterDate;
-    
+
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    Date receivedDateTime;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    Date letterDateTime;
+
     Boolean registered;
     String registeredNumber;
-    
+
     @ManyToOne
     Institute sendingInstitute;
     String sendingNumber;
     String topic;
-    
+
     @ManyToOne
     WebUser executiveOfficer;
     @ManyToOne
     WebUser departmentHead;
-    
+
     @ManyToOne
     WebUser subjectUser;
     @ManyToOne
     Subject subject;
-    
+
     @ManyToOne
     WebUser addedUser;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -60,6 +65,24 @@ public class Mail implements Serializable {
     @ManyToOne
     Department toDepartment;
 
+    public Date getReceivedDateTime() {
+        return receivedDateTime;
+    }
+
+    public void setReceivedDateTime(Date receivedDateTime) {
+        this.receivedDateTime = receivedDateTime;
+    }
+
+    public Date getLetterDateTime() {
+        return letterDateTime;
+    }
+
+    public void setLetterDateTime(Date letterDateTime) {
+        this.letterDateTime = letterDateTime;
+    }
+
+    
+    
     public Institute getToInstitute() {
         return toInstitute;
     }
@@ -75,11 +98,7 @@ public class Mail implements Serializable {
     public void setToDepartment(Department toDepartment) {
         this.toDepartment = toDepartment;
     }
-    
 
-    
-    
-    
     public Date getReceivedDate() {
         return receivedDate;
     }
@@ -191,8 +210,6 @@ public class Mail implements Serializable {
     public void setAddedTime(Date addedTime) {
         this.addedTime = addedTime;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -226,5 +243,5 @@ public class Mail implements Serializable {
     public String toString() {
         return "lk.gov.health.dailymail.entity.Mail[ id=" + id + " ]";
     }
-    
+
 }

@@ -60,7 +60,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="ලැබුණු දිනය"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.receivedDate}">
+                                    <h:outputText value="#{item.receivedDateTime}">
                                         <f:convertDateTime pattern="dd/MMM/yy"  timeZone="Asia/Colombo" />
                                     </h:outputText>
                                 </p:column>
@@ -68,7 +68,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="ලිපිෙය් දිනය"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.letterDate}">
+                                    <h:outputText value="#{item.letterDateTime}">
                                         <f:convertDateTime pattern="dd/MMM/yy"  timeZone="Asia/Colombo" />
                                     </h:outputText>
                                 </p:column>

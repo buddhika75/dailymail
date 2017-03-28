@@ -18,12 +18,9 @@
                         <f:selectItem itemLabel="Select Unit" ></f:selectItem>
                         <f:selectItems value="#{departmentController.itemsAvailableSelectOne}" var="ins" itemLabel="#{ins.name}" itemValue="#{ins}" ></f:selectItems>
                     </p:selectOneMenu>
-                    <p:outputLabel value="From" ></p:outputLabel>
-                    <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
-                    <p:outputLabel value="To" ></p:outputLabel>
-                    <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy" ></p:calendar>
-                    <p:commandButton value="List" action="#{mailController.listDeptMails()}" ajax="false" ></p:commandButton>
-
+                    <p:outputLabel value="Date" ></p:outputLabel>
+                    <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" timeZone="Asia/Colombo" ></p:calendar>
+                    <p:commandButton value="List" action="#{mailController.listDeptMailsDaily()}" ajax="false" ></p:commandButton>
                     <f:view>
 
 
@@ -38,11 +35,6 @@
                                     <h:outputText value="#{mailController.fromDate}">
                                         <f:convertDateTime pattern="dd MMMM yyyy" timeZone="Asia/Colombo"></f:convertDateTime>
                                     </h:outputText>
-                                    <h:outputText value="- "></h:outputText>
-                                    <h:outputText value="#{mailController.toDate}">
-                                        <f:convertDateTime pattern="dd MMMM yyyy" timeZone="Asia/Colombo" ></f:convertDateTime>
-                                    </h:outputText>
-
                                 </f:facet>
                                 <p:column width="30">
                                     <f:facet name="header">
@@ -54,7 +46,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="ලැබුණු දිනය"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.receivedDate}">
+                                    <h:outputText value="#{item.receivedDateTime}">
                                         <f:convertDateTime pattern="dd/MMM/yy"  timeZone="Asia/Colombo" />
                                     </h:outputText>
                                 </p:column>
@@ -62,7 +54,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="ලිපිෙය් දිනය"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.letterDate}">
+                                    <h:outputText value="#{item.letterDateTime}">
                                         <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
                                     </h:outputText>
                                 </p:column>
@@ -102,7 +94,16 @@
                                     </f:facet>
                                     <h:outputText value="#{item.departmentHead}"/>
                                 </p:column>
+                                <p:column width="50" rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="ID"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
                             </p:dataTable>
+
+                            <p:commandButton ajax="false" value="Update" action="#{mailController.addTime()}" ></p:commandButton>
+                            
                         </h:form>
                     </f:view>
 
