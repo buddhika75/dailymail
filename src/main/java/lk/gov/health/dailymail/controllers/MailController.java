@@ -196,6 +196,41 @@ public class MailController implements Serializable {
         return "/mail/depMails_created_date";
     }
     
+    public String listDeptMailsDailyByReceivedDate() {
+        String j;
+        j = "select m from Mail m "
+                + " where m.receivedDate = :fd "
+                + " and m.toDepartment=:dep"
+                + " order by m.id";
+        Map m = new HashMap();
+        TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
+        Calendar fc = Calendar.getInstance(t);
+        fc.setTime(getFromDate());
+        fc.add(Calendar.MINUTE, +330);
+
+        m.put("fd", fc.getTime());
+        m.put("dep", department);
+        items = getFacade().findBySQL(j, m, TemporalType.DATE);
+        return "/mail/depMails_received_date";
+    }
+    
+    public String listDeptMailsDailyByLetterDate() {
+        String j;
+        j = "select m from Mail m "
+                + " where m.letterDate = :fd "
+                + " and m.toDepartment=:dep"
+                + " order by m.id";
+        Map m = new HashMap();
+        TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
+        Calendar fc = Calendar.getInstance(t);
+        fc.setTime(getFromDate());
+        fc.add(Calendar.MINUTE, +330);
+
+        m.put("fd", fc.getTime());
+        m.put("dep", department);
+        items = getFacade().findBySQL(j, m, TemporalType.DATE);
+        return "/mail/depMails_letter_date";
+    }
 
     public String listUnassignedDeptMails() {
         String j;
@@ -287,6 +322,22 @@ public class MailController implements Serializable {
         this.department = department;
     }
 
+    public String toListDepLettersByCreatedDate(){
+        items = new ArrayList<Mail>();
+        return "/mail/depMails_created_date";
+    }
+    
+    public String toListDepLettersByLetterDate(){
+        items = new ArrayList<Mail>();
+        return "/mail/depMails_letter_date";
+    }
+    
+    public String toListDepLettersByReceivedDate(){
+        items = new ArrayList<Mail>();
+        return "/mail/depMails_received_date";
+    }
+    
+    
     public String toAddNewMail() {
         selected = new Mail();
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Asia/Colombo"));
