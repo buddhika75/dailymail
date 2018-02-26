@@ -177,6 +177,25 @@ public class MailController implements Serializable {
         items = getFacade().findBySQL(j, m, TemporalType.DATE);
         return "/mail/depMails";
     }
+    
+    public String listDeptMailsDailyByEnteredDate() {
+        String j;
+        j = "select m from Mail m "
+                + " where m.addedDate = :fd "
+                + " and m.toDepartment=:dep"
+                + " order by m.id";
+        Map m = new HashMap();
+        TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
+        Calendar fc = Calendar.getInstance(t);
+        fc.setTime(getFromDate());
+        fc.add(Calendar.MINUTE, +330);
+
+        m.put("fd", fc.getTime());
+        m.put("dep", department);
+        items = getFacade().findBySQL(j, m, TemporalType.DATE);
+        return "/mail/depMails_created_date";
+    }
+    
 
     public String listUnassignedDeptMails() {
         String j;
@@ -271,7 +290,7 @@ public class MailController implements Serializable {
     public String toAddNewMail() {
         selected = new Mail();
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Asia/Colombo"));
-        c.add(Calendar.HOUR, 12);
+//        c.add(Calendar.HOUR, 12);
         selected.setLetterDate(c.getTime());
         selected.setLetterDateTime(c.getTime());
         System.out.println("selected.getAddedTime() = " + selected.getLetterDate());

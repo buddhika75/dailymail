@@ -26,9 +26,20 @@ public class Institute implements Serializable {
     String name;
     String sname;
     String tname;
+    String code;
     @ManyToOne
     Institute parentInstitute;
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    
+    
     public String getSname() {
         return sname;
     }

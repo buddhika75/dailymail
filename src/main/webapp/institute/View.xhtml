@@ -12,12 +12,20 @@
             <h:form id="InstituteViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{instituteController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewInstituteLabel_name}"/>
+                        <h:outputText value="#{instituteController.selected.name}" title="#{bundle.ViewInstituteTitle_name}"/>
+
+
+                        <h:outputText value="Code"/>
+                        <h:outputText value="#{instituteController.selected.code}" title="#{bundle.ViewInstituteTitle_name}"/>
+
+
                         <h:outputText value="#{bundle.ViewInstituteLabel_sname}"/>
                         <h:outputText value="#{instituteController.selected.sname}" title="#{bundle.ViewInstituteTitle_sname}"/>
                         <h:outputText value="#{bundle.ViewInstituteLabel_tname}"/>
                         <h:outputText value="#{instituteController.selected.tname}" title="#{bundle.ViewInstituteTitle_tname}"/>
-                        <h:outputText value="#{bundle.ViewInstituteLabel_name}"/>
-                        <h:outputText value="#{instituteController.selected.name}" title="#{bundle.ViewInstituteTitle_name}"/>
+
                         <h:outputText value="#{bundle.ViewInstituteLabel_parentInstitute}"/>
                         <h:outputText value="#{instituteController.selected.parentInstitute}" title="#{bundle.ViewInstituteTitle_parentInstitute}"/>
                         <h:outputText value="#{bundle.ViewInstituteLabel_id}"/>

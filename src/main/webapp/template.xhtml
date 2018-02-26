@@ -24,10 +24,11 @@
 
                         <p:submenu label="Letters"  >
                             <p:menuitem ajax="false" value="Add Letter" action="#{mailController.toAddNewMail}" />
-                            <p:menuitem value="Search Letters" action="#" />
-                            <p:menuitem value="Assign Letters to Subjects" action="#{mailController.toAssignMailsToSubjects()}" />
-                            <p:menuitem value="Unit Letters" action="#{mailController.listDeptMails()}" />
-                            <p:menuitem value="Institute Letters" action="#{mailController.listInsMails()}" />
+                            <p:menuitem ajax="false" value="Reports" action="/mail/reports_index" />
+                            <p:menuitem ajax="false" value="Assign Letters to Subjects" action="#{mailController.toAssignMailsToSubjects()}" />
+                            <p:menuitem ajax="false" value="Unit Letters" action="#{mailController.listDeptMails()}" />
+                            <p:menuitem ajax="false" value="Institute Letters" action="#{mailController.listInsMails()}" />
+                        
                         </p:submenu>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Institute" outcome="/institute/List.xhtml" />

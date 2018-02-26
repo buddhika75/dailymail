@@ -37,9 +37,9 @@
 
                             <p:panelGrid columns="2" rendered="#{mailController.selected != null}">
                                 <p:outputLabel value="#{bundle.CreateMailLabel_receivedDate}" for="receivedDate" />
-                                <p:calendar  id="receivedDate" pattern="MM/dd/yyyy" value="#{mailController.selected.receivedDateTime}" title="#{bundle.EditMailTitle_receivedDate}"  showOn="button"/>
+                                <p:calendar  id="receivedDate" pattern="dd/MM/yyyy hh:mm" value="#{mailController.selected.receivedDateTime}" title="#{bundle.EditMailTitle_receivedDate}"  showOn="button" timeZone="Asia/Colombo"   />
                                 <p:outputLabel value="#{bundle.CreateMailLabel_letterDate}" for="letterDate" />
-                                <p:calendar  id="letterDate" pattern="MM/dd/yyyy" value="#{mailController.selected.letterDateTime}" title="#{bundle.EditMailTitle_letterDate}"  showOn="button"/>
+                                <p:calendar  id="letterDate" pattern="dd/MM/yyyy hh:mm" value="#{mailController.selected.letterDateTime}" title="#{bundle.EditMailTitle_letterDate}"  showOn="button"  timeZone="Asia/Colombo"    />
                                 <p:outputLabel value="#{bundle.CreateMailLabel_registered}" for="registered" />
                                 <p:selectBooleanCheckbox id="registered" value="#{mailController.selected.registered}" />
                                 <p:outputLabel value="#{bundle.CreateMailLabel_registeredNumber}" for="registeredNumber" />

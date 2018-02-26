@@ -12,12 +12,19 @@
             <h:form id="InstituteEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{instituteController.selected != null}">
+
+
+                        <p:outputLabel value="#{bundle.EditInstituteLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{instituteController.selected.name}" title="#{bundle.EditInstituteTitle_name}" />
+                        <p:outputLabel value="Code" for="code" />
+                        <p:inputText styleClass="longText" id="code" value="#{instituteController.selected.code}" 
+                                     title="Code" />
+                        
                         <p:outputLabel value="#{bundle.EditInstituteLabel_sname}" for="sname" />
                         <p:inputText id="sname" value="#{instituteController.selected.sname}" title="#{bundle.EditInstituteTitle_sname}" />
                         <p:outputLabel value="#{bundle.EditInstituteLabel_tname}" for="tname" />
                         <p:inputText id="tname" value="#{instituteController.selected.tname}" title="#{bundle.EditInstituteTitle_tname}" />
-                        <p:outputLabel value="#{bundle.EditInstituteLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{instituteController.selected.name}" title="#{bundle.EditInstituteTitle_name}" />
+
                         <p:outputLabel value="#{bundle.EditInstituteLabel_parentInstitute}" for="parentInstitute" />
                         <p:selectOneMenu id="parentInstitute" value="#{instituteController.selected.parentInstitute}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

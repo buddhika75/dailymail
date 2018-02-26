@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Reports</title>
+    </h:head>
+    <h:body>
+
+        <h:form >
+
+            <p:panel header="Reports" >
+
+                <p:panelGrid columns="2" >
+                    <f:facet name="header" >
+                        <p:row >
+                            <p:column >
+                                <p:outputLabel value="අංශයට ලැබෙන ලිපි " ></p:outputLabel>
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:commandButton ajax="false" action="/mail/depMails_created_date"
+                                     value="පරිගණකයට ඇතුළු කරන ලද දිනය අනුව ලිපි ලැයිස්තුව "  
+                                     ></p:commandButton>
+
+
+
+                </p:panelGrid>
+
+            </p:panel>
+
+        </h:form>
+
+    </h:body>
+</html>
+
