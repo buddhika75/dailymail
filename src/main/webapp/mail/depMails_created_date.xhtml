@@ -26,7 +26,7 @@
 
                             <p:outputLabel value="ලිපිය පරිගණක ගත කරන ලද දිනය" ></p:outputLabel>
                             <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" timeZone="Asia/Colombo" ></p:calendar>
-                            
+
 
                         </h:panelGrid>
                         <h:panelGrid columns="3" >
@@ -49,63 +49,97 @@
                                     <f:convertDateTime pattern="dd MMMM yyyy" timeZone="Asia/Colombo" ></f:convertDateTime>
                                 </h:outputText>
                             </f:facet>
+
+
                             <p:column width="30">
                                 <f:facet name="header">
                                     <h:outputText value="අනු අංකය"/>
                                 </f:facet>
                                 <h:outputText value="#{n+1}"/>
                             </p:column>
+
                             <p:column width="80">
                                 <f:facet name="header">
-                                    <h:outputText value="ලැබුණු දිනය"/>
+                                    <h:outputText value="දිනය"/>
                                 </f:facet>
-                                <h:outputText value="#{item.receivedDateTime}">
-                                    <f:convertDateTime pattern="dd/MMM/yy"  timeZone="Asia/Colombo" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column width="80">
-                                <f:facet name="header">
-                                    <h:outputText value="ලිපියේ දිනය"/>
-                                </f:facet>
-                                <h:outputText value="#{item.letterDateTime}">
+                                <h:outputText value="#{item.addedDate}">
                                     <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
                                 </h:outputText>
                             </p:column>
+
+                            <p:column width="80">
+                                <f:facet name="header">
+                                    <h:outputText value="කේත අංකය"/>
+                                </f:facet>
+                                <h:outputText value="#{item.codeNo}"/>
+                            </p:column>
+
                             <p:column width="80">
                                 <f:facet name="header">
                                     <h:outputText value="ලියාපදිංචි අංකය"/>
                                 </f:facet>
                                 <h:outputText value="#{item.registeredNumber}"/>
                             </p:column>
+
                             <p:column width="150">
                                 <f:facet name="header">
-                                    <h:outputText value="අායතනය"/>
+                                    <h:outputText value="ආයතනය"/>
                                 </f:facet>
                                 <h:outputText value="#{item.sendingInstitute.sname}"/>
                             </p:column>
+                            
+  
                             <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="යොමු අංකය"/>
                                 </f:facet>
                                 <h:outputText value="#{item.sendingNumber}"/>
                             </p:column>
-                            <p:column >
+                            
+                            <p:column width="80">
+                                    <f:facet name="header">
+                                        <h:outputText value="ලිපිෙය් දිනය"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.letterDateTime}">
+                                        <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
+                                    </h:outputText>
+                                </p:column>
+                            
+                             <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="මාතෘකාව"/>
                                 </f:facet>
                                 <h:outputText value="#{item.topic}"/>
                             </p:column>
+                            
+                            
+                            <p:column width="80">
+                                <f:facet name="header">
+                                    <h:outputText value="Exacutive Officer Signature"/>
+                                </f:facet>
+                                
+                                
+                            </p:column>
+                            <p:column width="80">
+                                <f:facet name="header">
+                                    <h:outputText value="Dept. Head Signature"/>
+                                </f:facet>
+                                
+                            </p:column>
+
+                          
+                           
                             <p:column width="50">
                                 <f:facet name="header">
                                     <h:outputText value="විෂය"/>
                                 </f:facet>
-                                <h:outputText value="#{item.executiveOfficer}"/>
+                                <h:outputText value="#{item.subject.name}"/>
                             </p:column>
                             <p:column width="50">
                                 <f:facet name="header">
-                                    <h:outputText value="අංශ ප්‍රධානී"/>
+                                    <h:outputText value="Signature"/>
                                 </f:facet>
-                                <h:outputText value="#{item.departmentHead}"/>
+
                             </p:column>
                         </p:dataTable>
 

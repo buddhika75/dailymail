@@ -36,13 +36,12 @@
 
 
                         <p:panelGrid columns="2" rendered="#{mailController.selected != null}">
-                            
+                            <p:outputLabel value="#{bundle.CreateMailLabel_receivedDate}" for="receivedDate" />
+                            <p:calendar  id="receivedDate" pattern="dd/MM/yyyy hh:mm" value="#{mailController.selected.receivedDateTime}" title="#{bundle.EditMailTitle_receivedDate}"  showOn="button" timeZone="Asia/Colombo"   />
+
 
                             <p:outputLabel value="කේත අංකය" for="codeNumber" />
                             <p:inputText id="codeNumber" value="#{mailController.selected.codeNo}"  styleClass="longText"  title="#{bundle.CreateMailTitle_sendingNumber}" />
-
-                            <p:outputLabel value="#{bundle.CreateMailLabel_receivedDate}" for="receivedDate" />
-                            <p:calendar  id="receivedDate" pattern="dd/MM/yyyy hh:mm" value="#{mailController.selected.receivedDateTime}" title="#{bundle.EditMailTitle_receivedDate}"  showOn="button" timeZone="Asia/Colombo"   />
 
 
                             <p:outputLabel value="#{bundle.CreateMailLabel_letterDate}" for="letterDate" />

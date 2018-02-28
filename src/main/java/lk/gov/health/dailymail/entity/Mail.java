@@ -25,6 +25,9 @@ public class Mail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    String codeNo;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     Date receivedDate;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -65,6 +68,16 @@ public class Mail implements Serializable {
     @ManyToOne
     Department toDepartment;
 
+    public String getCodeNo() {
+        return codeNo;
+    }
+
+    public void setCodeNo(String codeNo) {
+        this.codeNo = codeNo;
+    }
+
+    
+    
     public Date getReceivedDateTime() {
         return receivedDateTime;
     }

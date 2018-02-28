@@ -20,7 +20,7 @@
                     </p:selectOneMenu>
                     <p:outputLabel value="Date" ></p:outputLabel>
                     <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" timeZone="Asia/Colombo" ></p:calendar>
-                    <p:commandButton value="List" action="#{mailController.listDeptMailsDailyByReceivedDate()}" ajax="false" ></p:commandButton>
+                    <p:commandButton value="List" action="#{mailController.listDeptMailsDailyByLetterDate()}" ajax="false" ></p:commandButton>
                     <f:view>
 
 
@@ -51,6 +51,14 @@
                                         <h:outputText value="ලැබුණු දිනය"/>
                                     </f:facet>
                                     <h:outputText value="#{item.receivedDateTime}">
+                                        <f:convertDateTime pattern="dd/MMM/yy"  timeZone="Asia/Colombo" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column width="80">
+                                    <f:facet name="header">
+                                        <h:outputText value="Entered Date"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.addedDate}">
                                         <f:convertDateTime pattern="dd/MMM/yy"  timeZone="Asia/Colombo" />
                                     </h:outputText>
                                 </p:column>

@@ -70,6 +70,20 @@ public class MailController implements Serializable {
         myDepartnments = getDepartmentFacade().findBySQL(j, m);
         return myDepartnments;
     }
+    
+    
+    public List<Subject> getMySubjects() {
+        if(selected==null || selected.getToDepartment()==null){
+            return new ArrayList<Subject>();
+        }
+        String j = "select s from Subject s "
+                + " where s.department=:dep";
+        Map m = new HashMap();
+        m.put("dep", selected.getToDepartment());
+        deptSubjects = getSubjectFaceFacade().findBySQL(j, m);
+        return deptSubjects;
+    }
+    
 
     public String toAssignMailsToSubjects() {
         selectedItems = new ArrayList<Mail>();
