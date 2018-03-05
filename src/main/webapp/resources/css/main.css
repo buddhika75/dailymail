@@ -1,3 +1,13 @@
 .longText{
     width: 400px;
 }
+
+@media printLegal{
+    .legalPaper{
+        size: legal;
+    }
+}
+
+.alignTop{
+    vertical-align: top;
+}

@@ -33,7 +33,7 @@
                             <p:commandButton value="ලැයිස්තු ගත කරන්න" action="#{mailController.listDeptMailsDailyByEnteredDate()}" ajax="false" ></p:commandButton>
 
                             <p:commandButton ajax="false" value="මෙම ලැයිස්තුව මුද්‍රණය කරන්න" >
-                                <p:printer target="tbl" ></p:printer>
+                                <p:printer target="tbl" class="printLegal" ></p:printer>
                             </p:commandButton>
                             <p:commandButton ajax="false" value="මෙම ලැයිස්තුව EXCEL ගොනුවක් ලෙස භාගත කරන්න " >
                                 <p:dataExporter target="tbl"  type="xls" fileName="mails"></p:dataExporter>
@@ -41,7 +41,8 @@
 
                         </h:panelGrid>
 
-                        <p:dataTable id="tbl" value="#{mailController.items}" var="item" rowIndexVar="n" >
+                        <p:dataTable id="tbl" value="#{mailController.items}" var="item" 
+                                     rowIndexVar="n" >
                             <f:facet name="header" >
                                 <h:outputText value="පරිගණකයට ඇතුළු කරන ලද දිනය අනුව අංශයට ලැබෙන ලිපි ලැයිස්තුව - "/>
                                 <h:outputText value="#{mailController.department.sname} - "/>
@@ -58,16 +59,9 @@
                                 <h:outputText value="#{n+1}"/>
                             </p:column>
 
-                            <p:column width="80">
-                                <f:facet name="header">
-                                    <h:outputText value="දිනය"/>
-                                </f:facet>
-                                <h:outputText value="#{item.addedDate}">
-                                    <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
-                                </h:outputText>
-                            </p:column>
 
-                            <p:column width="80">
+
+                            <p:column width="40">
                                 <f:facet name="header">
                                     <h:outputText value="කේත අංකය"/>
                                 </f:facet>
@@ -87,48 +81,49 @@
                                 </f:facet>
                                 <h:outputText value="#{item.sendingInstitute.sname}"/>
                             </p:column>
-                            
-  
+
+
                             <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="යොමු අංකය"/>
                                 </f:facet>
                                 <h:outputText value="#{item.sendingNumber}"/>
                             </p:column>
-                            
+
                             <p:column width="80">
-                                    <f:facet name="header">
-                                        <h:outputText value="ලිපිෙය් දිනය"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.letterDateTime}">
-                                        <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
-                                    </h:outputText>
-                                </p:column>
-                            
-                             <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="ලිපියේ දිනය"/>
+                                </f:facet>
+                                <h:outputText value="#{item.letterDateTime}">
+                                    <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="මාතෘකාව"/>
                                 </f:facet>
                                 <h:outputText value="#{item.topic}"/>
                             </p:column>
-                            
-                            
-                            <p:column width="80">
+
+
+                            <p:column width="60">
                                 <f:facet name="header">
-                                    <h:outputText value="Exacutive Officer Signature"/>
+                                    <h:outputText value="මාණ්ඩලික නිලධාරී"/>
                                 </f:facet>
-                                
-                                
                             </p:column>
-                            <p:column width="80">
+                            
+                            
+                            
+                            <p:column width="60">
                                 <f:facet name="header">
-                                    <h:outputText value="Dept. Head Signature"/>
+                                    <h:outputText value="අංශ ප්‍රධානි"/>
                                 </f:facet>
-                                
+
                             </p:column>
 
-                          
-                           
+
+
                             <p:column width="50">
                                 <f:facet name="header">
                                     <h:outputText value="විෂය"/>
@@ -137,7 +132,7 @@
                             </p:column>
                             <p:column width="50">
                                 <f:facet name="header">
-                                    <h:outputText value="Signature"/>
+                                    <h:outputText value="අත්සන"/>
                                 </f:facet>
 
                             </p:column>
