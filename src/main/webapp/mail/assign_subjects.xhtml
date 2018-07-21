@@ -30,10 +30,12 @@
                     <p:commandButton value="List All Mails" action="#{mailController.listUnassignedAndAssignedDeptMails()}" ajax="false" ></p:commandButton>
 
                     <h:outputText value="Subject"/>
+                    <h:panelGroup >
                     <p:selectOneMenu id="subject" value="#{mailController.subject}" >
                         <f:selectItems value="#{mailController.deptSubjects}"  ></f:selectItems>
                     </p:selectOneMenu>
-
+                        <p:commandButton value="Assign" action="#{mailController.assignMailsToSubject()}" ajax="false" ></p:commandButton>
+                    </h:panelGroup>
                     </p:panelGrid>
                     
                     <f:view>
