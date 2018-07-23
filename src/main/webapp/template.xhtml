@@ -19,14 +19,19 @@
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
                 <h:form id="menuForm"  rendered="#{webUserController.loggedUser ne null}" >
+                    
+                    <p:commandButton rendered="false" ajax="false" value="Fix" action="#{mailController.fixAllMails()}" ></p:commandButton>
+                    
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
 
                         <p:submenu label="Letters"  >
                             <p:menuitem ajax="false" value="Add Letter" action="#{mailController.toAddNewMail}" />
                             <p:menuitem ajax="false" value="Reports" action="/mail/reports_index" />
-                            <p:menuitem ajax="false" value="Assign Letters to Subjects" action="#{mailController.toAssignMailsToSubjects()}" />
-                            <p:menuitem ajax="false" value="Institute Letters" action="#{mailController.listInsMails()}" />
+                            <p:menuitem ajax="false" value="Assign Letters to Subjects" 
+                                        action="#{mailController.toAssignMailsToSubjects()}" />
+                            <p:menuitem ajax="false" value="Subject Letters" 
+                                        action="#{mailController.toListSubjectMails}" />
                         
                         </p:submenu>
                         <p:submenu label="#{bundle.Maintenance}">

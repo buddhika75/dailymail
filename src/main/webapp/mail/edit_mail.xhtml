@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="/template.xhtml">
+
+            <ui:define name="body">
+                <h:form id="MailCreateForm">
+
+                    <p:panel header="Add New Mail" style="width: 50%;margin: auto; margin-top: 10px;"  >
+                        <f:facet name="header" >
+                            <p:outputLabel value="Add New Mail" ></p:outputLabel>
+                            <br/>
+                            <p:autoComplete value="#{mailController.selected.toInstitute}"
+                                            var="ii" itemLabel="#{ii.name}" itemValue="#{ii}" completeMethod="#{instituteController.completeInstitutes}"
+                                            forceSelection="true" size="50" >
+                                <p:column >
+                                    <p:outputLabel value="#{i.name}" ></p:outputLabel>
+                                </p:column>
+                                <p:column >
+                                    <p:outputLabel value="#{i.sname}" ></p:outputLabel>
+                                </p:column>
+                                <p:column >
+                                    <p:outputLabel value="#{i.tname}" ></p:outputLabel>
+                                </p:column>
+                            </p:autoComplete>
+                            <br/>
+                            <p:commandButton action="#{mailController.saveMail()}" value="#{bundle.Save}" ajax="false" />
+                        </f:facet>
+
+
+                        <p:panelGrid columns="2" rendered="#{mailController.selected != null}">
+
+
+                            <p:outputLabel value="කේත අංකය" />
+                            <p:inputText id="codeNumber" value="#{mailController.selected.codeNo}"  styleClass="longText"  title="#{bundle.CreateMailTitle_sendingNumber}" />
+
+                            <p:outputLabel value="#{bundle.CreateMailLabel_receivedDate}"  />
+                            <p:outputLabel    value="#{mailController.selected.letterDateTime}" title="#{bundle.EditMailTitle_letterDate}"   >
+                                <f:convertDateTime pattern="dd MMMM yyyy"  timeZone="Asia/Colombo" ></f:convertDateTime>
+                            </p:outputLabel>
+
+
+                            <p:outputLabel value="#{bundle.CreateMailLabel_letterDate}" />
+                            <p:outputLabel    value="#{mailController.selected.letterDateTime}" title="#{bundle.EditMailTitle_letterDate}"  >
+                                <f:convertDateTime pattern="dd MMMM yyyy"  timeZone="Asia/Colombo" ></f:convertDateTime>
+                            </p:outputLabel>
+
+                            <p:outputLabel value="#{bundle.CreateMailLabel_registeredNumber}"  />
+                            <p:outputLabel  value="#{mailController.selected.registeredNumber}" title="#{bundle.CreateMailTitle_registeredNumber}" />
+
+                            <p:outputLabel value="#{bundle.CreateMailLabel_sendingInstitute}"  />
+                            <p:outputLabel value="#{mailController.selected.sendingInstitute.name}"  />
+
+                            <p:outputLabel value="#{bundle.CreateMailLabel_sendingNumber}"  />
+                            <p:outputLabel  value="#{mailController.selected.sendingNumber}"  styleClass="longText"  title="#{bundle.CreateMailTitle_sendingNumber}" />
+
+
+                            <p:outputLabel value="#{bundle.CreateMailLabel_topic}"  />
+                            <p:outputLabel id="topic" value="#{mailController.selected.topic}"  styleClass="longText"  title="#{bundle.CreateMailTitle_topic}" />
+
+
+                            <p:outputLabel value="අංශය"  />
+                            <p:outputLabel value="#{mailController.selected.toDepartment.name}"  />
+
+                            <p:outputLabel value="විෂය"  />
+                            <p:outputLabel value="#{mailController.selected.subject.name}"  />
+
+                            <p:outputLabel value="විෂය"  />
+                            <p:inputTextarea cols="40" rows="10" value="#{mailController.selected.actionsTaken}" ></p:inputTextarea>
+                            
+                            
+
+                        </p:panelGrid>
+
+
+                    </p:panel>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

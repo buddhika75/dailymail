@@ -14,30 +14,30 @@
                 <h:form id="MailCreateForm">
 
                     <p:panelGrid columns="2" >
-                    
-                    <p:outputLabel value="Unit" ></p:outputLabel>
-                    <p:selectOneMenu id="dep" value="#{mailController.department}" >
-                        <p:ajax process="@this" update="subject" event="itemSelect" ></p:ajax>
-                        <f:selectItem itemLabel="Select Unit" ></f:selectItem>
-                        <f:selectItems value="#{departmentController.itemsAvailableSelectOne}" var="ins" itemLabel="#{ins.name}" itemValue="#{ins}" ></f:selectItems>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="From" ></p:outputLabel>
-                    <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
-                    <p:outputLabel value="To" ></p:outputLabel>
-                    <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy" ></p:calendar>
 
-                    <p:commandButton value="List Unassigned Mails" action="#{mailController.listUnassignedDeptMails()}" ajax="false" ></p:commandButton>
-                    <p:commandButton value="List All Mails" action="#{mailController.listUnassignedAndAssignedDeptMails()}" ajax="false" ></p:commandButton>
+                        <p:outputLabel value="Unit" ></p:outputLabel>
+                        <p:selectOneMenu id="dep" value="#{mailController.department}" >
+                            <p:ajax process="@this" update="subject" event="itemSelect" ></p:ajax>
+                            <f:selectItem itemLabel="Select Unit" ></f:selectItem>
+                            <f:selectItems value="#{departmentController.itemsAvailableSelectOne}" var="ins" itemLabel="#{ins.name}" itemValue="#{ins}" ></f:selectItems>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="From" ></p:outputLabel>
+                        <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                        <p:outputLabel value="To" ></p:outputLabel>
+                        <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy" ></p:calendar>
 
-                    <h:outputText value="Subject"/>
-                    <h:panelGroup >
-                    <p:selectOneMenu id="subject" value="#{mailController.subject}" >
-                        <f:selectItems value="#{mailController.deptSubjects}"  ></f:selectItems>
-                    </p:selectOneMenu>
-                        <p:commandButton value="Assign" action="#{mailController.assignMailsToSubject()}" ajax="false" ></p:commandButton>
-                    </h:panelGroup>
+                        <p:commandButton value="List Unassigned Mails" action="#{mailController.listUnassignedDeptMails()}" ajax="false" ></p:commandButton>
+                        <p:commandButton value="List All Mails" action="#{mailController.listUnassignedAndAssignedDeptMails()}" ajax="false" ></p:commandButton>
+
+                        <h:outputText value="Subject"/>
+                        <h:panelGroup >
+                            <p:selectOneMenu id="subject" value="#{mailController.subject}" >
+                                <f:selectItems value="#{mailController.deptSubjects}"  ></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:commandButton  value="Assign" action="#{mailController.assignMailsToSubject()}" ajax="false" ></p:commandButton>
+                        </h:panelGroup>
                     </p:panelGrid>
-                    
+
                     <f:view>
 
 
@@ -112,7 +112,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="විෂය"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.executiveOfficer}"/>
+                                    <h:outputText value="#{item.subject.name}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:form>

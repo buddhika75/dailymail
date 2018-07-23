@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
@@ -67,6 +68,11 @@ public class Mail implements Serializable {
     Institute toInstitute;
     @ManyToOne
     Department toDepartment;
+    @Lob
+    private String actionsTaken;
+    
+    
+    
 
     public String getCodeNo() {
         return codeNo;
@@ -83,6 +89,7 @@ public class Mail implements Serializable {
     }
 
     public void setReceivedDateTime(Date receivedDateTime) {
+        System.out.println("receivedDateTime = " + receivedDateTime);
         this.receivedDateTime = receivedDateTime;
     }
 
@@ -91,6 +98,7 @@ public class Mail implements Serializable {
     }
 
     public void setLetterDateTime(Date letterDateTime) {
+        System.out.println("letterDateTime = " + letterDateTime);
         this.letterDateTime = letterDateTime;
     }
 
@@ -255,6 +263,14 @@ public class Mail implements Serializable {
     @Override
     public String toString() {
         return "lk.gov.health.dailymail.entity.Mail[ id=" + id + " ]";
+    }
+
+    public String getActionsTaken() {
+        return actionsTaken;
+    }
+
+    public void setActionsTaken(String actionsTaken) {
+        this.actionsTaken = actionsTaken;
     }
 
 }
