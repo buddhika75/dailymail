@@ -90,16 +90,16 @@
                                 <h:outputText value="#{item.sendingNumber}"/>
                             </p:column>
 
-                             <p:column width="80">
+                            <p:column width="80">
                                 <f:facet name="header">
                                     <h:outputText value="ලැබුණු දිනය"/>
                                 </f:facet>
-                                 <h:outputText value="#{item.receivedDateTime}">
+                                <h:outputText value="#{item.receivedDateTime}">
                                     <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
                                 </h:outputText>
                             </p:column>
-                            
-                              <p:column width="80">
+
+                            <p:column width="80">
                                 <f:facet name="header">
                                     <h:outputText value="ලිපියේ දිනය"/>
                                 </f:facet>
@@ -107,7 +107,7 @@
                                     <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
                                 </h:outputText>
                             </p:column>
-                           
+
                             <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="මාතෘකාව"/>
@@ -121,14 +121,15 @@
                                     <h:outputText value="මාණ්ඩලික නිලධාරී"/>
                                 </f:facet>
                             </p:column>
-                            
-                            
-                            
+
+
+
                             <p:column width="60">
                                 <f:facet name="header">
                                     <h:outputText value="අංශ ප්‍රධානි"/>
-                                </f:facet>
 
+                                </f:facet>
+                                <h:outputText value="#{item.actionsTaken}"/>
                             </p:column>
 
 
