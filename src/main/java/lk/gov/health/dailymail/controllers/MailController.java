@@ -84,6 +84,7 @@ public class MailController implements Serializable {
     }
 
     public String toAssignMailsToSubjects() {
+        items = new ArrayList<Mail>();
         selectedItems = new ArrayList<Mail>();
         return "/mail/assign_subjects";
     }
