@@ -22,9 +22,9 @@
                             <f:selectItems value="#{departmentController.itemsAvailableSelectOne}" var="ins" itemLabel="#{ins.name}" itemValue="#{ins}" ></f:selectItems>
                         </p:selectOneMenu>
                         <p:outputLabel value="From" ></p:outputLabel>
-                        <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                        <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" timeZone="Asia/Colombo" ></p:calendar>
                         <p:outputLabel value="To" ></p:outputLabel>
-                        <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                        <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy"  timeZone="Asia/Colombo" ></p:calendar>
 
                         <p:commandButton value="List Unassigned Mails" action="#{mailController.listUnassignedDeptMails()}" ajax="false" ></p:commandButton>
                         <p:commandButton value="List All Mails" action="#{mailController.listUnassignedAndAssignedDeptMails()}" ajax="false" ></p:commandButton>
@@ -84,6 +84,15 @@
                                         <f:convertDateTime pattern="MM/dd/yy" />
                                     </h:outputText>
                                 </p:column>
+
+                                <p:column width="80">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="කේත අංකය"  />
+                                    </f:facet>
+                                    <h:outputText value="#{item.codeNo}"/>
+
+                                </p:column>
+
                                 <p:column width="80">
                                     <f:facet name="header">
                                         <h:outputText value="ලියාපදිංචි අංකය"/>
