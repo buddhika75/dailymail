@@ -141,10 +141,10 @@ public class MailController implements Serializable {
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
         Calendar fc = Calendar.getInstance(t);
         fc.setTime(getFromDate());
-        fc.add(Calendar.MINUTE, -330);
+       // fc.add(Calendar.MINUTE, -330);
         Calendar tc = Calendar.getInstance(t);
         tc.setTime(getToDate());
-        tc.add(Calendar.MINUTE, -330);
+        //tc.add(Calendar.MINUTE, -330);
         m.put("fd", fc.getTime());
         m.put("td", tc.getTime());
 
@@ -162,10 +162,10 @@ public class MailController implements Serializable {
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
         Calendar fc = Calendar.getInstance(t);
         fc.setTime(getFromDate());
-        fc.add(Calendar.MINUTE, -330);
+       // fc.add(Calendar.MINUTE, -330);
         Calendar tc = Calendar.getInstance(t);
         tc.setTime(getToDate());
-        tc.add(Calendar.MINUTE, -330);
+       // tc.add(Calendar.MINUTE, -330);
         m.put("fd", fc.getTime());
         m.put("td", tc.getTime());
         m.put("ins", department);
@@ -257,10 +257,10 @@ public class MailController implements Serializable {
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
         Calendar fc = Calendar.getInstance(t);
         fc.setTime(getFromDate());
-        fc.add(Calendar.MINUTE, -330);
+        //fc.add(Calendar.MINUTE, -330);
         Calendar tc = Calendar.getInstance(t);
         tc.setTime(getToDate());
-        tc.add(Calendar.MINUTE, -330);
+        //tc.add(Calendar.MINUTE, -330);
         m.put("fd", fc.getTime());
         m.put("td", tc.getTime());
         m.put("ins", department);
@@ -269,28 +269,32 @@ public class MailController implements Serializable {
 
     }
 
-    public String toListSubjectMails(){
+    public String toListSubjectMails() {
         items = new ArrayList<Mail>();
         return "/mail/subject_mails_letter_date";
     }
-    
+
     public void listSubjectMails() {
         String j;
-        j = "select m from Mail m "
-                + " where m.receivedDate between :fd and :td"
-                + " and m.subject=:s "
-                + " order by m.id";
         Map m = new HashMap();
+        j = "select m from Mail m "
+                + " where m.receivedDate between :fd and :td";
+        if (subject != null) {
+            j += " and m.subject=:s ";
+            m.put("s", subject);
+        }
+        j += " order by m.id";
+
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
         Calendar fc = Calendar.getInstance(t);
         fc.setTime(getFromDate());
-        fc.add(Calendar.MINUTE, -330);
+        //fc.add(Calendar.MINUTE, -330);
         Calendar tc = Calendar.getInstance(t);
         tc.setTime(getToDate());
-        tc.add(Calendar.MINUTE, -330);
+        //tc.add(Calendar.MINUTE, -330);
         m.put("fd", fc.getTime());
         m.put("td", tc.getTime());
-        m.put("s", subject);
+
         items = getFacade().findBySQL(j, m);
 
     }
@@ -305,14 +309,14 @@ public class MailController implements Serializable {
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
         Calendar fc = Calendar.getInstance(t);
         fc.setTime(getFromDate());
-        fc.add(Calendar.MINUTE, -330);
+       // fc.add(Calendar.MINUTE, -330);
         Calendar tc = Calendar.getInstance(t);
         tc.setTime(getToDate());
-        tc.add(Calendar.MINUTE, -330);
+        //tc.add(Calendar.MINUTE, -330);
         m.put("fd", fc.getTime());
         m.put("td", tc.getTime());
         m.put("ins", department);
-        items = getFacade().findBySQL(j, m);
+        items = getFacade().findBySQL(j, m,TemporalType.DATE);
         return "/mail/assign_subjects";
 
     }
@@ -433,11 +437,11 @@ public class MailController implements Serializable {
     public void saveMail() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to save");
-            return ;
+            return;
         }
         if (selected.getToInstitute() == null) {
             JsfUtil.addErrorMessage("Select Institute");
-            return ;
+            return;
         }
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
 

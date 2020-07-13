@@ -63,6 +63,9 @@ public class Mail implements Serializable {
     Date addedDate;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     Date addedTime;
+    
+    
+    
 
     @ManyToOne
     Institute toInstitute;

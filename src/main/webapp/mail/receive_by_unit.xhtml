@@ -17,7 +17,7 @@
 
                         <p:outputLabel value="Unit" ></p:outputLabel>
                         <p:selectOneMenu id="dep" value="#{mailController.department}" >
-                            <p:ajax process="@this" update="subject" event="itemSelect" ></p:ajax>
+                            <p:ajax process="@this" event="itemSelect" ></p:ajax>
                             <f:selectItem itemLabel="Select Unit" ></f:selectItem>
                             <f:selectItems value="#{departmentController.itemsAvailableSelectOne}" var="ins" itemLabel="#{ins.name}" itemValue="#{ins}" ></f:selectItems>
                         </p:selectOneMenu>
@@ -26,16 +26,12 @@
                         <p:outputLabel value="To" ></p:outputLabel>
                         <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy"  timeZone="Asia/Colombo" ></p:calendar>
 
-                        <p:commandButton value="List Unassigned Mails" action="#{mailController.listUnassignedDeptMails()}" ajax="false" ></p:commandButton>
-                        <p:commandButton value="List All Mails" action="#{mailController.listUnassignedAndAssignedDeptMails()}" ajax="false" ></p:commandButton>
+                        <p:commandButton value="List Mails to Receive" 
+                                         action="#{mailController.listUnassignedDeptMails()}" ajax="false" ></p:commandButton>
+                        <p:commandButton value="List All Mails" 
+                                         action="#{mailController.listUnassignedAndAssignedDeptMails()}" ajax="false" ></p:commandButton>
 
-                        <h:outputText value="Subject"/>
-                        <h:panelGroup >
-                            <p:selectOneMenu id="subject" value="#{mailController.subject}" >
-                                <f:selectItems value="#{mailController.deptSubjects}"  ></f:selectItems>
-                            </p:selectOneMenu>
-                            <p:commandButton  value="Assign" action="#{mailController.assignMailsToSubject()}" ajax="false" ></p:commandButton>
-                        </h:panelGroup>
+                        
                     </p:panelGrid>
 
                     <f:view>

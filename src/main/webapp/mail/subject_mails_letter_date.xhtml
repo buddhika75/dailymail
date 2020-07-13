@@ -28,6 +28,7 @@
                         <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy" ></p:calendar>
                         <p:outputLabel value="From" ></p:outputLabel>
                         <p:selectOneMenu id="subject" value="#{mailController.subject}" >
+                            <f:selectItem itemLabel="Any Subject" ></f:selectItem>
                             <f:selectItems value="#{mailController.deptSubjects}"  ></f:selectItems>
                         </p:selectOneMenu>
 
@@ -81,7 +82,7 @@
                                 <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
                             </h:outputText>
                         </p:column>
-                        <p:column width="80">
+                        <p:column width="80" sortBy="#{item.codeNo}" filterBy="#{item.codeNo}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <p:outputLabel value="කේත අංකය"  />
                             </f:facet>
