@@ -19,9 +19,9 @@
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
                 <h:form id="menuForm"  rendered="#{webUserController.loggedUser ne null}" >
-                    
+
                     <p:commandButton rendered="false" ajax="false" value="Fix" action="#{mailController.fixAllMails()}" ></p:commandButton>
-                    
+
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
 
@@ -32,7 +32,8 @@
                                         action="#{mailController.toAssignMailsToSubjects()}" />
                             <p:menuitem ajax="false" value="Subject Letters" 
                                         action="#{mailController.toListSubjectMails}" />
-                        
+                            <p:menuitem ajax="false" value="Actions Taken" 
+                                        action="#{mailController.toListActionsTakenSubjectMails()}" />
                         </p:submenu>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Institute" outcome="/institute/List.xhtml" />
@@ -60,7 +61,7 @@
 
                             #{webUserController.loggedInstitute}
                             #{webUserController.loggedUser.institute}
-                            
+
                         </h:panelGrid>
                     </h:form>
                 </ui:insert>

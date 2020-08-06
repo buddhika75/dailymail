@@ -31,7 +31,7 @@
                                 </p:column>
                             </p:autoComplete>
                             <br/>
-                            <p:commandButton action="#{mailController.saveMail()}" value="#{bundle.Save}" ajax="false" />
+                            <p:commandButton action="#{mailController.saveActionTaken()}" value="#{bundle.Save}" ajax="false" />
                         </f:facet>
 
 
@@ -72,7 +72,7 @@
                             <p:outputLabel value="විෂය"  />
                             <p:outputLabel value="#{mailController.selected.subject.name}"  />
 
-                            <p:outputLabel value="විෂය"  />
+                            <p:outputLabel value="Action Taken"  />
                             <p:inputTextarea cols="40" rows="10" value="#{mailController.selected.actionsTaken}" ></p:inputTextarea>
                             
                             

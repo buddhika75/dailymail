@@ -65,6 +65,16 @@ public class Mail implements Serializable {
     Date addedTime;
     
     
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date assignedDate;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date assignedTime;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date actionDate;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date actionTime;
+    
     
 
     @ManyToOne
@@ -85,6 +95,8 @@ public class Mail implements Serializable {
         this.codeNo = codeNo;
     }
 
+    
+    
     
     
     public Date getReceivedDateTime() {
@@ -274,6 +286,38 @@ public class Mail implements Serializable {
 
     public void setActionsTaken(String actionsTaken) {
         this.actionsTaken = actionsTaken;
+    }
+
+    public Date getActionDate() {
+        return actionDate;
+    }
+
+    public void setActionDate(Date actionDate) {
+        this.actionDate = actionDate;
+    }
+
+    public Date getActionTime() {
+        return actionTime;
+    }
+
+    public void setActionTime(Date actionTime) {
+        this.actionTime = actionTime;
+    }
+
+    public Date getAssignedDate() {
+        return assignedDate;
+    }
+
+    public void setAssignedDate(Date assignedDate) {
+        this.assignedDate = assignedDate;
+    }
+
+    public Date getAssignedTime() {
+        return assignedTime;
+    }
+
+    public void setAssignedTime(Date assignedTime) {
+        this.assignedTime = assignedTime;
     }
 
 }

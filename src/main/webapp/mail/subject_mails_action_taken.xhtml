@@ -76,19 +76,40 @@
                         </p:column>
                         <p:column width="80">
                             <f:facet name="header">
-                                <h:outputText value="Action Taken"/>
+                                <h:outputText value="Letter Date"/>
+                            </f:facet>
+                            <h:outputText value="#{item.letterDateTime}">
+                                <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column width="80">
+                            <f:facet name="header">
+                                <h:outputText value="Assigned Date"/>
+                            </f:facet>
+                            <h:outputText value="#{item.assignedDate}">
+                                <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column width="80">
+                            <f:facet name="header">
+                                <h:outputText value="Action Date"/>
                             </f:facet>
                             <h:outputText value="#{item.actionDate}">
                                 <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
                             </h:outputText>
                         </p:column>
+
                         <p:column width="80" sortBy="#{item.codeNo}" filterBy="#{item.codeNo}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <p:outputLabel value="කේත අංකය"  />
                             </f:facet>
                             <h:outputText value="#{item.codeNo}"/>
                         </p:column>
-                        <p:column width="80" rendered="false">
+                        <p:column width="80">
                             <f:facet name="header">
                                 <h:outputText value="ලියාපදිංචි අංකය"/>
                             </f:facet>
@@ -106,7 +127,7 @@
                             </f:facet>
                             <h:outputText value="#{item.sendingNumber}"/>
                         </p:column>
-                        <p:column rendered="false">
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="මාතෘකාව"/>
                             </f:facet>

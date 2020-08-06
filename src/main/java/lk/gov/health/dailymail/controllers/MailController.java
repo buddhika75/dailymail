@@ -92,6 +92,8 @@ public class MailController implements Serializable {
 
     public void assignMailsToSubject() {
         for (Mail m : selectedItems) {
+            m.setAssignedDate(new Date());
+            m.setAssignedTime(new Date());
             m.setSubject(subject);
             getFacade().edit(m);
         }
@@ -273,6 +275,11 @@ public class MailController implements Serializable {
         items = new ArrayList<Mail>();
         return "/mail/subject_mails_letter_date";
     }
+    
+    public String toListActionsTakenSubjectMails() {
+        items = new ArrayList<Mail>();
+        return "/mail/subject_mails_action_taken";
+    }
 
     public void listSubjectMails() {
         String j;
@@ -445,6 +452,25 @@ public class MailController implements Serializable {
         }
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
 
+        getFacade().edit(selected);
+        JsfUtil.addSuccessMessage("Letter Saved");
+    }
+    
+    
+    public void saveActionTaken() {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to save");
+            return;
+        }
+        if (selected.getToInstitute() == null) {
+            JsfUtil.addErrorMessage("Select Institute");
+            return;
+        }
+        TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
+
+        selected.setActionDate(new Date());
+        selected.setActionTime(new Date());
+        
         getFacade().edit(selected);
         JsfUtil.addSuccessMessage("Letter Saved");
     }
