@@ -36,6 +36,87 @@ public class WebUserController implements Serializable {
     String password;
     Institute loggedInstitute;
 
+    public String toManageUsers() {
+        return "/webUser/index";
+    }
+
+    public String toViewUsers() {
+        items = getFacade().findAll();
+        return "/webUser/list";
+    }
+
+    public String toAddUser() {
+        selected = new WebUser();
+        return "/webUser/add_user";
+    }
+    
+    public String toEditUser() {
+        selected = new WebUser();
+        return "/webUser/edit_user";
+    }
+
+    public String toChangePassword() {
+        return "/webUser/password";
+    }
+
+    public String toChangeMyDetails() {
+        return "/webUser/my_details";
+    }
+
+    public String toChangeMyPassword() {
+        return "/webUser/my_password";
+    }
+    
+    public String activateUser(){
+        if(selected==null){
+            JsfUtil.addErrorMessage("Nothing selected");
+            return "";
+        }
+        if(selected.isActive()){
+            JsfUtil.addErrorMessage("Already active.");
+            return "";
+        }
+        selected.setActive(true);
+        saveUser();
+        JsfUtil.addSuccessMessage("Activated");
+        selected = null;
+        return toViewUsers();
+    }
+    
+    public String deactivateUser(){
+        if(selected==null){
+            JsfUtil.addErrorMessage("Nothing selected");
+            return "";
+        }
+        if(!selected.isActive()){
+            JsfUtil.addErrorMessage("Already deactive.");
+            return "";
+        }
+        selected.setActive(false);
+        saveUser();
+        JsfUtil.addSuccessMessage("Deactivated");
+        selected = null;
+        return toViewUsers();
+    }
+    
+    public void saveUser(){
+        saveUser(selected);
+    }
+    
+    public void saveUser(WebUser wu){
+        if(wu==null){
+            JsfUtil.addSuccessMessage("Nothing to save.");
+            return;
+        }
+        if(wu.getId()==null){
+            getFacade().create(wu);
+            JsfUtil.addSuccessMessage("Saved");
+        }else{
+            getFacade().edit(wu);
+            JsfUtil.addSuccessMessage("Updated");
+        }
+    }
+
     public Institute getLoggedInstitute() {
         return loggedInstitute;
     }
@@ -44,8 +125,6 @@ public class WebUserController implements Serializable {
         this.loggedInstitute = loggedInstitute;
     }
 
-    
-    
     public String login() {
         if (userName == null || userName.trim().equals("")) {
             JsfUtil.addErrorMessage("Enter a Username");
@@ -78,7 +157,7 @@ public class WebUserController implements Serializable {
 
     public String logOut() {
         loggedUser = null;
-        loggedInstitute=null;
+        loggedInstitute = null;
         return "";
     }
 

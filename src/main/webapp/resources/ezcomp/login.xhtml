@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form >
+            <p:panel header="Login" >
+                <p:panelGrid >
+                    <p:row >
+                        <p:column >
+                            <p:outputLabel value="User Name" ></p:outputLabel>
+                        </p:column>
+                        <p:column >
+                            <p:spacer width="10" height="1" ></p:spacer>
+                        </p:column>
+                        <p:column >
+                            <p:inputText value="#{webUserController.userName}" ></p:inputText>
+                        </p:column>
+                    </p:row>
+                    <p:row >
+                        <p:column >
+                            <p:outputLabel value="Password" ></p:outputLabel>
+                        </p:column>
+                        <p:column >
+                            <p:spacer width="10" height="1" ></p:spacer>
+                        </p:column>
+                        <p:column >
+                            <p:inputText value="#{webUserController.password}" ></p:inputText>
+                        </p:column>
+                    </p:row>
+                    <p:row  >
+                        <p:column colspan="3" >
+                            <p:commandButton ajax="false" value="Login" action="#{webUserController.login()}" ></p:commandButton>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </cc:implementation>
+</html>

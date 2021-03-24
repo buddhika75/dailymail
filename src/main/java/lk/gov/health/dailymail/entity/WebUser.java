@@ -8,10 +8,13 @@ package lk.gov.health.dailymail.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import lk.gov.health.dailymail.enums.Role;
 
 /**
  *
@@ -39,7 +42,12 @@ public class WebUser implements Serializable {
     Institute institute;
     @ManyToOne
     Department department;
+    @Enumerated(EnumType.STRING)
+    private Role userRole;
 
+    
+    
+    
     public Institute getInstitute() {
         return institute;
     }
@@ -165,6 +173,17 @@ public class WebUser implements Serializable {
     @Override
     public String toString() {
         return "lk.gov.sp.healthdept.td.WebUser[ id=" + id + " ]";
+    }
+
+    public Role getUserRole() {
+        if(userRole==null){
+            userRole = Role.Administrator;
+        }
+        return userRole;
+    }
+
+    public void setUserRole(Role userRole) {
+        this.userRole = userRole;
     }
     
 }

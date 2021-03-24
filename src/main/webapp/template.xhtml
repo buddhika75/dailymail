@@ -3,10 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <title>
+            <ui:insert name="title">
+                Mail Management System
+            </ui:insert>
+        </title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputStylesheet library="css" name="main.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
@@ -18,100 +23,22 @@
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
-                <h:form id="menuForm"  rendered="#{webUserController.loggedUser ne null}" >
-
-                    <p:commandButton rendered="false" ajax="false" value="Fix" action="#{mailController.fixAllMails()}" ></p:commandButton>
-
-                    <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
-
-                        <p:submenu label="Letters"  >
-                            <p:menuitem ajax="false" value="Add Letter" action="#{mailController.toAddNewMail}" />
-                            <p:menuitem ajax="false" value="Reports" action="/mail/reports_index" />
-                            <p:menuitem ajax="false" value="Assign Letters to Subjects" 
-                                        action="#{mailController.toAssignMailsToSubjects()}" />
-                            <p:menuitem ajax="false" value="Subject Letters" 
-                                        action="#{mailController.toListSubjectMails}" />
-                            <p:menuitem ajax="false" value="Actions Taken" 
-                                        action="#{mailController.toListActionsTakenSubjectMails()}" />
-                        </p:submenu>
-                        <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="Institute" outcome="/institute/List.xhtml" />
-                            <p:menuitem value="Add Several Institutes" outcome="/institute/institutions_bulk.xhtml" />
-                            <p:menuitem value="Department" outcome="/department/List.xhtml" />
-                            <p:menuitem value="Mail" outcome="/mail/List.xhtml" />
-                            <p:menuitem value="Subject" outcome="/subject/List.xhtml" />
-                            <p:menuitem value="WebUser" outcome="/webUser/List.xhtml" />
-                        </p:submenu>
-                    </p:menubar>
-                </h:form>
+                <ez:menu/>
             </p:layoutUnit>
 
             <p:layoutUnit position="south" size="60">
                 <ui:insert name="footer">
-                    <h:form >
-                        <h:panelGrid columns="4" >
-
-                            <p:outputLabel rendered="#{webUserController.loggedUser ne null}" value="You are logged as #{webUserController.loggedUser.name}" ></p:outputLabel>
-                            <p:outputLabel rendered="#{webUserController.loggedUser.institute ne null}" value=". #{webUserController.loggedUser.institute.name}" ></p:outputLabel>
-
-                            <p:commandLink rendered="#{webUserController.loggedUser ne null}" value="Logout" ajax="false" action="#{webUserController.logOut()}" ></p:commandLink>
-
-                            <p:outputLabel rendered="#{webUserController.loggedUser eq null}" value="Please login to continue" ></p:outputLabel>
-
-                            #{webUserController.loggedInstitute}
-                            #{webUserController.loggedUser.institute}
-
-                        </h:panelGrid>
-                    </h:form>
+                    <ez:footer/>
                 </ui:insert>
             </p:layoutUnit>
 
             <p:layoutUnit position="center">
                 <p:panel rendered="#{webUserController.loggedUser eq null}" >
-
-                    <h:form >
-
-                        <p:panel header="Login" >
-                            <p:panelGrid >
-                                <p:row >
-                                    <p:column >
-                                        <p:outputLabel value="User Name" ></p:outputLabel>
-                                    </p:column>
-                                    <p:column >
-                                        <p:spacer width="10" height="1" ></p:spacer>
-                                    </p:column>
-                                    <p:column >
-                                        <p:inputText value="#{webUserController.userName}" ></p:inputText>
-                                    </p:column>
-                                </p:row>
-                                <p:row >
-                                    <p:column >
-                                        <p:outputLabel value="Password" ></p:outputLabel>
-                                    </p:column>
-                                    <p:column >
-                                        <p:spacer width="10" height="1" ></p:spacer>
-                                    </p:column>
-                                    <p:column >
-                                        <p:inputText value="#{webUserController.password}" ></p:inputText>
-                                    </p:column>
-                                </p:row>
-                                <p:row  >
-                                    <p:column colspan="3" >
-                                        <p:commandButton ajax="false" value="Login" action="#{webUserController.login()}" ></p:commandButton>
-                                    </p:column>
-                                </p:row>
-                            </p:panelGrid>
-                        </p:panel>
-
-
-
-                    </h:form>
+                    <ez:login/>
                 </p:panel>
                 <h:panelGroup rendered="#{webUserController.loggedUser ne null}" style="padding: 10px;" >
                     <ui:insert name="body"> </ui:insert>
                 </h:panelGroup>
-
             </p:layoutUnit>
 
         </p:layout>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form id="menuForm"  rendered="#{webUserController.loggedUser ne null}" >
+            <p:commandButton rendered="false" ajax="false" value="Fix" action="#{mailController.fixAllMails()}" ></p:commandButton>
+            <p:menubar>
+                <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
+
+                <p:submenu label="Letters"  >
+                    <p:menuitem ajax="false" value="Add Letter" action="#{mailController.toAddNewMail}" />
+                    <p:menuitem ajax="false" value="Reports" action="/mail/reports_index" />
+                    <p:menuitem ajax="false" value="Assign Letters to Subjects" 
+                                action="#{mailController.toAssignMailsToSubjects()}" />
+                    <p:menuitem ajax="false" value="Subject Letters" 
+                                action="#{mailController.toListSubjectMails}" />
+                    <p:menuitem ajax="false" value="Actions Taken" 
+                                action="#{mailController.toListActionsTakenSubjectMails()}" />
+                </p:submenu>
+                <p:submenu label="#{bundle.Maintenance}">
+                    <p:menuitem value="Institute" outcome="/institute/List.xhtml" />
+                    <p:menuitem value="Add Several Institutes" outcome="/institute/institutions_bulk.xhtml" />
+                    <p:menuitem value="Department" outcome="/department/List.xhtml" />
+                    <p:menuitem value="Mail" outcome="/mail/List.xhtml" />
+                    <p:menuitem value="Subject" outcome="/subject/List.xhtml" />
+                    <p:menuitem value="Users" outcome="/webUser/index.xhtml" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </cc:implementation>
+</html>

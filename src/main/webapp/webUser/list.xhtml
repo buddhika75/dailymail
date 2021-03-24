@@ -24,8 +24,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton deactivateButton editButton passwordButton activateButton"/>
+                        <p:ajax event="rowUnselect" update="createButton deactivateButton editButton passwordButton activateButton"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -60,18 +60,18 @@
                             <h:outputText value="#{item.email}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{webUserController.prepareCreate}" update=":WebUserCreateForm" oncomplete="PF('WebUserCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":WebUserViewForm" oncomplete="PF('WebUserViewDialog').show()" disabled="#{empty webUserController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":WebUserEditForm" oncomplete="PF('WebUserEditDialog').show()" disabled="#{empty webUserController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{webUserController.destroy}" update=":growl,datalist" disabled="#{empty webUserController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Add New User" action="#{webUserController.toAddUser()}" ajax="false"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit User" disabled="#{empty webUserController.selected}" action="#{webUserController.toEditUser()}" ajax="false"/>
+                            <p:commandButton id="passwordButton"   icon="ui-icon-pencil" value="Change Password" disabled="#{empty webUserController.selected}" action="#{webUserController.toChangePassword()}" ajax="false"/>
+
+                            <p:commandButton id="activateButton" icon="ui-icon-trash"  value="Activate" action="#{webUserController.activateUser()}" disabled="#{empty webUserController.selected}" ajax="false"/>
+                            <p:commandButton id="deactivateButton"   icon="ui-icon-search" value="Deactivate" action="#{webUserController.activateUser()}" disabled="#{empty webUserController.selected}" ajax="false"/>
+
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 
