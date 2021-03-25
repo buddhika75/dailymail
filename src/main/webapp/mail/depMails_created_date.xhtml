@@ -68,7 +68,7 @@
                                 <h:outputText value="#{item.codeNo}"/>
                             </p:column>
 
-                            <p:column width="80">
+                            <p:column width="60">
                                 <f:facet name="header">
                                     <h:outputText value="ලියාපදිංචි අංකය"/>
                                 </f:facet>
@@ -90,25 +90,25 @@
                                 <h:outputText value="#{item.sendingNumber}"/>
                             </p:column>
 
-                            <p:column width="80">
+                            <p:column width="70">
                                 <f:facet name="header">
                                     <h:outputText value="ලැබුණු දිනය"/>
                                 </f:facet>
                                 <h:outputText value="#{item.receivedDateTime}">
-                                    <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
+                                    <f:convertDateTime pattern="dd/MM/yy" timeZone="Asia/Colombo" />
                                 </h:outputText>
                             </p:column>
 
-                            <p:column width="80">
+                            <p:column width="70">
                                 <f:facet name="header">
                                     <h:outputText value="ලිපියේ දිනය"/>
                                 </f:facet>
                                 <h:outputText value="#{item.letterDateTime}">
-                                    <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
+                                    <f:convertDateTime pattern="dd/MM/yy" timeZone="Asia/Colombo" />
                                 </h:outputText>
                             </p:column>
 
-                            <p:column >
+                            <p:column width="100" >
                                 <f:facet name="header">
                                     <h:outputText value="මාතෘකාව"/>
                                 </f:facet>
@@ -124,7 +124,7 @@
 
 
 
-                            <p:column width="60">
+                            <p:column width="40">
                                 <f:facet name="header">
                                     <h:outputText value="අංශ ප්‍රධානි"/>
 
@@ -134,13 +134,13 @@
 
 
 
-                            <p:column width="50">
+                            <p:column width="30">
                                 <f:facet name="header">
                                     <h:outputText value="විෂය"/>
                                 </f:facet>
                                 <h:outputText value="#{item.subject.name}"/>
                             </p:column>
-                            <p:column width="50">
+                            <p:column width="30">
                                 <f:facet name="header">
                                     <h:outputText value="අත්සන"/>
                                 </f:facet>
