@@ -11,3 +11,9 @@
 .alignTop{
     vertical-align: top;
 }
+
+
+.companyHeaderGrid.ui-panelgrid>*>tr,
+.companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}

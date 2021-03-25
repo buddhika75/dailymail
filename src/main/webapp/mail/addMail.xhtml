@@ -13,28 +13,18 @@
             <ui:define name="body">
                 <h:form id="MailCreateForm">
 
-                    <p:panel header="Add New Mail" style="width: 50%;margin: auto; margin-top: 10px;"  >
+                    <p:panel header="Add New Mail"  >
                         <f:facet name="header" >
                             <p:outputLabel value="Add New Mail" ></p:outputLabel>
-                            <br/>
+                        </f:facet>
+                        <p:panelGrid columns="2" >
                             <p:autoComplete value="#{mailController.selected.toInstitute}"
                                             var="ii" itemLabel="#{ii.name}" itemValue="#{ii}" completeMethod="#{instituteController.completeInstitutes}"
                                             forceSelection="true" size="50" >
-                                <p:column >
-                                    <p:outputLabel value="#{i.name}" ></p:outputLabel>
-                                </p:column>
-                                <p:column >
-                                    <p:outputLabel value="#{i.sname}" ></p:outputLabel>
-                                </p:column>
-                                <p:column >
-                                    <p:outputLabel value="#{i.tname}" ></p:outputLabel>
-                                </p:column>
                             </p:autoComplete>
-                            <br/>
                             <p:commandButton action="#{mailController.saveNewMail()}" value="#{bundle.Save}" ajax="false" />
-                        </f:facet>
 
-
+                        </p:panelGrid>
                         <p:panelGrid columns="2" rendered="#{mailController.selected != null}">
 
 

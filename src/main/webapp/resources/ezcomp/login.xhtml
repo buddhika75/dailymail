@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <!-- INTERFACE -->
     <cc:interface>
@@ -11,12 +12,23 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
+
+
+
         <h:form >
-            <p:panel header="Login" >
-                <p:panelGrid >
+            <p:panelGrid  columns="2" style="width: 60%;margin: auto;" >
+                <f:facet name="header" >
+                    <p:outputLabel value="Login" ></p:outputLabel>
+                </f:facet>
+                <h:panelGroup >
+                    <div>
+                        <p:graphicImage library="images" name="login.png" style="width: 75%; margin:auto;" ></p:graphicImage>
+                    </div>
+                </h:panelGroup>
+                <p:panelGrid styleClass="companyHeaderGrid" >
                     <p:row >
                         <p:column >
-                            <p:outputLabel value="User Name" ></p:outputLabel>
+                            <p:outputLabel value="Username" ></p:outputLabel>
                         </p:column>
                         <p:column >
                             <p:spacer width="10" height="1" ></p:spacer>
@@ -37,12 +49,12 @@
                         </p:column>
                     </p:row>
                     <p:row  >
-                        <p:column colspan="3" >
+                        <p:column colspan="3" style="text-align: right;" >
                             <p:commandButton ajax="false" value="Login" action="#{webUserController.login()}" ></p:commandButton>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
-            </p:panel>
+            </p:panelGrid>
         </h:form>
     </cc:implementation>
 </html>

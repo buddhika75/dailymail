@@ -9,12 +9,11 @@
     <h:head>
         <title>
             <ui:insert name="title">
-                Mail Management System
+                #{bundle.AppName}
             </ui:insert>
         </title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputStylesheet library="css" name="main.css"/>
-        <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
 
     <h:body>
@@ -22,20 +21,28 @@
         <p:growl id="growl" life="3000" />
 
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
-                <ez:menu/>
-            </p:layoutUnit>
+            <h:panelGroup rendered="#{webUserController.loggedUser eq null}" >
+                <p:layoutUnit position="north" size="45"  style="border: 0;">
+                    <p:graphicImage rendered="#{webUserController.loggedUser eq null}" library="images" name="banner.jpg" ></p:graphicImage>
+                </p:layoutUnit>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{webUserController.loggedUser ne null}" >
+                <p:layoutUnit position="north" size="35"  style="border: 0;">
+                    <ez:menu/>
+                </p:layoutUnit>
+            </h:panelGroup>
 
-            <p:layoutUnit position="south" size="60">
+
+            <p:layoutUnit position="south" size="35">
                 <ui:insert name="footer">
                     <ez:footer/>
                 </ui:insert>
             </p:layoutUnit>
 
-            <p:layoutUnit position="center">
-                <p:panel rendered="#{webUserController.loggedUser eq null}" >
+            <p:layoutUnit position="center" style="border: 0;">
+                <h:panelGroup rendered="#{webUserController.loggedUser eq null}" >
                     <ez:login/>
-                </p:panel>
+                </h:panelGroup>
                 <h:panelGroup rendered="#{webUserController.loggedUser ne null}" style="padding: 10px;" >
                     <ui:insert name="body"> </ui:insert>
                 </h:panelGroup>

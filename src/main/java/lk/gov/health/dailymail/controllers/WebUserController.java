@@ -138,7 +138,10 @@ public class WebUserController implements Serializable {
         Map m = new HashMap();
         m.put("un", userName);
         m.put("pw", password);
+        System.out.println("m = " + m);
+        System.out.println("j = " + j);
         loggedUser = getFacade().findFirstBySQL(j, m);
+        System.out.println("loggedUser = " + loggedUser);
         if (loggedUser == null) {
             if (getFacade().count() == 0) {
                 loggedUser = new WebUser();
@@ -152,7 +155,7 @@ public class WebUserController implements Serializable {
                 getFacade().create(loggedUser);
             }
         }
-        return "";
+        return "/index";
     }
 
     public String logOut() {
