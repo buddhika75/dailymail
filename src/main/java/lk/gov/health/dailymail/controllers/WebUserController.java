@@ -23,7 +23,7 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 import lk.gov.health.dailymail.entity.Institute;
 
-@Named(value = "webUserController")
+@Named
 @SessionScoped
 public class WebUserController implements Serializable {
 
@@ -51,7 +51,6 @@ public class WebUserController implements Serializable {
     }
     
     public String toEditUser() {
-        selected = new WebUser();
         return "/webUser/edit_user";
     }
 
@@ -143,19 +142,22 @@ public class WebUserController implements Serializable {
         loggedUser = getFacade().findFirstBySQL(j, m);
         System.out.println("loggedUser = " + loggedUser);
         if (loggedUser == null) {
-            if (getFacade().count() == 0) {
-                loggedUser = new WebUser();
-                loggedUser.setActive(true);
-                loggedUser.setEmail("buddhika.ari@gmail.com");
-                loggedUser.setExecutiveOfficer(true);
-                loggedUser.setName("Buddhika");
-                loggedUser.setPassword("b");
-                loggedUser.setUserName("b");
-                loggedInstitute = loggedUser.getInstitute();
-                getFacade().create(loggedUser);
-            }
+//            if (getFacade().count() == 0) {
+//                loggedUser = new WebUser();
+//                loggedUser.setActive(true);
+//                loggedUser.setEmail("buddhika.ari@gmail.com");
+//                loggedUser.setExecutiveOfficer(true);
+//                loggedUser.setName("Buddhika");
+//                loggedUser.setPassword("b");
+//                loggedUser.setUserName("b");
+//                loggedInstitute = loggedUser.getInstitute();
+//                getFacade().create(loggedUser);
+//            }
+            JsfUtil.addErrorMessage("Wrong User Credentials");
+            return "";
         }
-        return "/index";
+        JsfUtil.addSuccessMessage("Successfully Logged");
+        return "";
     }
 
     public String logOut() {
