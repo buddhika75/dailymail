@@ -97,6 +97,7 @@ public class MailController implements Serializable {
         for (Mail m : selectedItems) {
             m.setAssignedDate(new Date());
             m.setAssignedTime(new Date());
+            m.setAssignedUser(webUserController.getLoggedUser());
             m.setSubject(subject);
             getFacade().edit(m);
         }
@@ -283,7 +284,7 @@ public class MailController implements Serializable {
         m.put("td", tc.getTime());
         m.put("ins", department);
         items = getFacade().findBySQL(j, m);
-        return "/mail/assign_subjects";
+        return "";
 
     }
     
@@ -306,7 +307,7 @@ public class MailController implements Serializable {
         m.put("td", tc.getTime());
         m.put("ins", department);
         items = getFacade().findBySQL(j, m);
-        return "/mail/assign_subjects";
+        return "";
 
     }
 
@@ -363,7 +364,7 @@ public class MailController implements Serializable {
         m.put("td", tc.getTime());
         m.put("ins", department);
         items = getFacade().findBySQL(j, m, TemporalType.DATE);
-        return "/mail/assign_subjects";
+        return "";
 
     }
 

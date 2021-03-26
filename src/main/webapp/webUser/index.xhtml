@@ -11,28 +11,30 @@
     </h:head>
     <h:body>
 
-        <ui:composition template="./../template.xhtml">
+        <ui:composition template="/template.xhtml">
 
 
 
             <ui:define name="body">
-                
-                
+
+
                 <p:panel header="Manage Users" >
-                    
-                    
-                    <p:panelGrid columns="1" >
-                        
-                        <p:commandButton value="Add New User" action="#{webUserController.toAddUser()}"
-                                         ajax="false" ></p:commandButton>
-                        <p:commandButton value="List User" action="#{webUserController.toViewUsers()}"
-                                         ajax="false" ></p:commandButton>
-                        
-                    </p:panelGrid>
-                    
+                    <h:form >
+                        <p:panelGrid columns="1" >
+
+                            <p:commandButton value="Add New User" action="#{webUserController.toAddUser()}"
+                                             ajax="false" ></p:commandButton>
+                            <p:commandButton value="List User" action="#{webUserController.toViewUsers()}"
+                                             ajax="false" ></p:commandButton>
+
+                        </p:panelGrid>
+                    </h:form>
+
+
+
                 </p:panel>
-                
-                
+
+
             </ui:define>
 
         </ui:composition>

@@ -8,16 +8,22 @@
 
     <body>
 
-        <ui:composition template="./../template.xhtml">
+        <ui:composition template="/template.xhtml">
 
             <ui:define name="body">
-                <h:form id="MailCreateForm">
-                    <p:panelGrid columns="2" >
-                        <p:commandButton value="Unassigned Mails" action="#{mailController.toAssignedMailes()}" ajax="false" ></p:commandButton>
-                        <p:commandButton value="Assigned Mails" action="#{mailController.toUnassignedMailes()}" ajax="false" ></p:commandButton>
-                        <p:commandButton value="All Mails" action="#{mailController.toAssignedMailesStatus()}" ajax="false" ></p:commandButton>
-                    </p:panelGrid>
-                </h:form>
+
+                <p:panel header="Assigned Mails" >
+
+                    <h:form id="MailCreateForm">
+                        <p:panelGrid columns="1" >
+                            <p:commandButton value="Unassigned Mails" action="#{mailController.toUnassignedMailes()}" ajax="false" ></p:commandButton>
+                            <p:commandButton value="Assigned Mails" action="#{mailController.toAssignedMailes()}" ajax="false" ></p:commandButton>
+                            <p:commandButton value="All Mails" action="#{mailController.toAssignedMailesStatus()}" ajax="false" ></p:commandButton>
+                        </p:panelGrid>
+                    </h:form>
+
+
+                </p:panel>
 
             </ui:define>
 
