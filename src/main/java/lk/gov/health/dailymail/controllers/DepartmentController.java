@@ -12,11 +12,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.spi.Bean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -38,15 +36,16 @@ public class DepartmentController implements Serializable {
     private Department selected;
     List<Department> myDepartnments = null;
 
-
     public List<Department> getMyDepartnments() {
-        Institute ins = webUserController.getLoggedInstitute();
-        System.out.println("ins = " + ins);
-        String j = "select d from Department d "
-                + " where d.institute=:ins";
-        Map m = new HashMap();
-        m.put("ins", ins);
-        myDepartnments = getFacade().findBySQL(j, m);
+        if (myDepartnments == null) {
+            Institute ins = webUserController.getLoggedInstitute();
+            System.out.println("ins = " + ins);
+            String j = "select d from Department d "
+                    + " where d.institute=:ins";
+            Map m = new HashMap();
+            m.put("ins", ins);
+            myDepartnments = getFacade().findBySQL(j, m);
+        }
         return myDepartnments;
     }
 

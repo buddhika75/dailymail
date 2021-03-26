@@ -6,9 +6,8 @@ import lk.gov.health.dailymail.controllers.util.JsfUtil.PersistAction;
 import lk.gov.health.dailymail.facades.InstituteFacade;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +30,7 @@ public class InstituteController implements Serializable {
     private Institute selected;
     String bulkText;
     Institute bulkParentInstitution;
-    
+
     public void addBulkInstitutions() {
         if (bulkParentInstitution == null) {
             JsfUtil.addErrorMessage("Parent Institution?");
@@ -42,7 +41,7 @@ public class InstituteController implements Serializable {
             return;
         }
         String lines[] = bulkText.split("\\r?\\n");
-        int i =0;
+        int i = 0;
         for (String line : lines) {
             if (!line.trim().equals("")) {
                 i++;
@@ -60,7 +59,6 @@ public class InstituteController implements Serializable {
         JsfUtil.addSuccessMessage(i + " institutions added.");
     }
 
-    
     public InstituteController() {
     }
 
@@ -79,8 +77,6 @@ public class InstituteController implements Serializable {
     public void setBulkParentInstitution(Institute bulkParentInstitution) {
         this.bulkParentInstitution = bulkParentInstitution;
     }
-    
-    
 
     public Institute getSelected() {
         return selected;
@@ -161,20 +157,22 @@ public class InstituteController implements Serializable {
     }
 
     public List<Institute> getItemsAvailableSelectMany() {
-        return getFacade().findAll();
+        return getItems();
     }
 
     public List<Institute> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getItems();
     }
-    
+
     public List<Institute> completeInstitutes(String qry) {
-        String j = "Select i from Institute i "
-                + " where upper(i.name) like :n or upper(i.sname) like :n or upper(i.tname) like :n "
-                + " order by i.name";
-        Map m = new HashMap();
-        m.put("n", "%"+ qry.toUpperCase() + "%");
-        return getFacade().findBySQL(j, m, 15);
+        List<Institute> tis = new ArrayList<Institute>();
+        for (Institute i : getItems()) {
+            if (i.getName().toLowerCase().contains(qry.toLowerCase()) || i.getName().toLowerCase().contains(qry.toLowerCase())) {
+                tis.add(i);
+            }
+        }
+
+        return tis;
     }
 
     @FacesConverter(forClass = Institute.class)

@@ -63,11 +63,13 @@ public class MailController implements Serializable {
     List<Department> myDepartnments = null;
 
     public List<Department> getMyDepartnments() {
-        String j = "select d from Department d "
-                + " where d.institute=:ins";
-        Map m = new HashMap();
-        m.put("ins", institute);
-        myDepartnments = getDepartmentFacade().findBySQL(j, m);
+        if (myDepartnments == null && institute!=null) {
+            String j = "select d from Department d "
+                    + " where d.institute=:ins";
+            Map m = new HashMap();
+            m.put("ins", institute);
+            myDepartnments = getDepartmentFacade().findBySQL(j, m);
+        }
         return myDepartnments;
     }
 
@@ -88,7 +90,7 @@ public class MailController implements Serializable {
         selectedItems = new ArrayList<Mail>();
         items = new ArrayList<Mail>();
         getItems();
-        return "/mail/assign_subjects";
+        return "/mail/assign_index";
     }
 
     public void assignMailsToSubject() {
@@ -144,7 +146,7 @@ public class MailController implements Serializable {
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
         Calendar fc = Calendar.getInstance(t);
         fc.setTime(getFromDate());
-       // fc.add(Calendar.MINUTE, -330);
+        // fc.add(Calendar.MINUTE, -330);
         Calendar tc = Calendar.getInstance(t);
         tc.setTime(getToDate());
         //tc.add(Calendar.MINUTE, -330);
@@ -165,10 +167,10 @@ public class MailController implements Serializable {
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
         Calendar fc = Calendar.getInstance(t);
         fc.setTime(getFromDate());
-       // fc.add(Calendar.MINUTE, -330);
+        // fc.add(Calendar.MINUTE, -330);
         Calendar tc = Calendar.getInstance(t);
         tc.setTime(getToDate());
-       // tc.add(Calendar.MINUTE, -330);
+        // tc.add(Calendar.MINUTE, -330);
         m.put("fd", fc.getTime());
         m.put("td", tc.getTime());
         m.put("ins", department);
@@ -231,6 +233,19 @@ public class MailController implements Serializable {
         return "/mail/depMails_received_date";
     }
 
+    
+    public String toUnassignedMailes(){
+        return "/mail/mails_unassigned";
+    }
+    
+     public String toAssignedMailes(){
+        return "/mail/mails_assigned";
+    }
+     
+      public String toAssignedMailesStatus(){
+        return "/mail/mails_assigned_status";
+    }
+    
     public String listDeptMailsDailyByLetterDate() {
         String j;
         j = "select m from Mail m "
@@ -271,12 +286,35 @@ public class MailController implements Serializable {
         return "/mail/assign_subjects";
 
     }
+    
+    public String listAssignedDeptMails() {
+        String j;
+        j = "select m from Mail m "
+                + " where m.receivedDate between :fd and :td"
+                + " and m.toDepartment=:ins "
+                + " and m.subject is not null "
+                + " order by m.id";
+        Map m = new HashMap();
+        TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
+        Calendar fc = Calendar.getInstance(t);
+        fc.setTime(getFromDate());
+        //fc.add(Calendar.MINUTE, -330);
+        Calendar tc = Calendar.getInstance(t);
+        tc.setTime(getToDate());
+        //tc.add(Calendar.MINUTE, -330);
+        m.put("fd", fc.getTime());
+        m.put("td", tc.getTime());
+        m.put("ins", department);
+        items = getFacade().findBySQL(j, m);
+        return "/mail/assign_subjects";
+
+    }
 
     public String toListSubjectMails() {
         items = new ArrayList<Mail>();
         return "/mail/subject_mails_letter_date";
     }
-    
+
     public String toListActionsTakenSubjectMails() {
         items = new ArrayList<Mail>();
         return "/mail/subject_mails_action_taken";
@@ -317,14 +355,14 @@ public class MailController implements Serializable {
         TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
         Calendar fc = Calendar.getInstance(t);
         fc.setTime(getFromDate());
-       // fc.add(Calendar.MINUTE, -330);
+        // fc.add(Calendar.MINUTE, -330);
         Calendar tc = Calendar.getInstance(t);
         tc.setTime(getToDate());
         //tc.add(Calendar.MINUTE, -330);
         m.put("fd", fc.getTime());
         m.put("td", tc.getTime());
         m.put("ins", department);
-        items = getFacade().findBySQL(j, m,TemporalType.DATE);
+        items = getFacade().findBySQL(j, m, TemporalType.DATE);
         return "/mail/assign_subjects";
 
     }
@@ -456,8 +494,7 @@ public class MailController implements Serializable {
         getFacade().edit(selected);
         JsfUtil.addSuccessMessage("Letter Saved");
     }
-    
-    
+
     public void saveActionTaken() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to save");
@@ -471,7 +508,7 @@ public class MailController implements Serializable {
 
         selected.setActionDate(new Date());
         selected.setActionTime(new Date());
-        
+
         getFacade().edit(selected);
         JsfUtil.addSuccessMessage("Letter Saved");
     }
@@ -520,9 +557,9 @@ public class MailController implements Serializable {
     }
 
     public List<Mail> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+//        if (items == null) {
+//            items = getFacade().findAll();
+//        }
         return items;
     }
 

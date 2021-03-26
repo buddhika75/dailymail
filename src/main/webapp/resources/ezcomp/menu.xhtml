@@ -12,11 +12,10 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
         <h:form id="menuForm"  rendered="#{webUserController.loggedUser ne null}" >
-            <!--<p:commandButton rendered="false" ajax="false" value="Fix" action="#{mailController.fixAllMails()}" ></p:commandButton>-->
             <p:menubar style="width: 98%;margin: auto;">
                 <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
 
-                <p:submenu label="Letters"  >
+                <p:submenu label="Letters"   >
                     <p:menuitem ajax="false" value="Add Letter" action="#{mailController.toAddNewMail}" />
                     <p:menuitem ajax="false" value="Reports" action="/mail/reports_index" />
                     <p:menuitem ajax="false" value="Assign Letters to Subjects" 
