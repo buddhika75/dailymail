@@ -18,37 +18,35 @@
 
     <h:body>
 
-        <p:growl id="growl" life="3000" autoUpdate="true" />
+        <p:growl id="growl" life="3000" />
 
-        <p:layout fullPage="true" >
+
+        <div class="ui-grid" >
             <h:panelGroup rendered="#{webUserController.loggedUser eq null}" >
-                <p:layoutUnit position="north" size="25"  style="border: 0;" resizable="false">
-                    <p:graphicImage rendered="#{webUserController.loggedUser eq null}" library="images" name="banner.jpg" ></p:graphicImage>
-                </p:layoutUnit>
+
+                <div class="ui-grid-col-12">
+                    <p:graphicImage style="width: 100%; margin: auto;"
+                        rendered="#{webUserController.loggedUser eq null}" library="images" name="banner.jpg" ></p:graphicImage>
+                </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{webUserController.loggedUser ne null}" >
-                <p:layoutUnit position="north" size="15"  style="border: 0;"  resizable="false">
+                <div class="ui-grid-col-12">  
                     <ez:menu/>
-                </p:layoutUnit>
+                </div>
             </h:panelGroup>
-
-
-            <p:layoutUnit position="south" size="35"  resizable="false">
-                <ui:insert name="footer">
-                    <ez:footer/>
-                </ui:insert>
-            </p:layoutUnit>
-
-            <p:layoutUnit position="center" style="border: 0;"  resizable="false">
+            <div class="ui-grid-col-12">  
                 <h:panelGroup rendered="#{webUserController.loggedUser eq null}" >
                     <ez:login/>
                 </h:panelGroup>
                 <h:panelGroup rendered="#{webUserController.loggedUser ne null}" >
                     <ui:insert name="body"> </ui:insert>
                 </h:panelGroup>
-            </p:layoutUnit>
+            </div>
+            <div id="footer" class="ui-grid-col-12"> 
+                <ez:footer/>
+            </div>
+        </div>
 
-        </p:layout>
 
     </h:body>
 
