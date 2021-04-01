@@ -26,9 +26,9 @@ public class Mail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     String codeNo;
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     Date receivedDate;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -63,22 +63,26 @@ public class Mail implements Serializable {
     Date addedDate;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     Date addedTime;
-    
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date assignedDate;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date assignedTime;
     @ManyToOne
     private WebUser assignedUser;
-    
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date actionDate;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date actionTime;
-    
-    
+
+    boolean accepted;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date acceptedDate;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date acceptedTime;
+    @ManyToOne
+    private WebUser acceptedUser;
 
     @ManyToOne
     Institute toInstitute;
@@ -86,10 +90,41 @@ public class Mail implements Serializable {
     Department toDepartment;
     @Lob
     private String actionsTaken;
-    
-    
-    
 
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+
+    public Date getAcceptedDate() {
+        return acceptedDate;
+    }
+
+    public void setAcceptedDate(Date acceptedDate) {
+        this.acceptedDate = acceptedDate;
+    }
+
+    public Date getAcceptedTime() {
+        return acceptedTime;
+    }
+
+    public void setAcceptedTime(Date acceptedTime) {
+        this.acceptedTime = acceptedTime;
+    }
+
+    public WebUser getAcceptedUser() {
+        return acceptedUser;
+    }
+
+    public void setAcceptedUser(WebUser acceptedUser) {
+        this.acceptedUser = acceptedUser;
+    }
+
+    
+    
     public String getCodeNo() {
         return codeNo;
     }
@@ -98,10 +133,6 @@ public class Mail implements Serializable {
         this.codeNo = codeNo;
     }
 
-    
-    
-    
-    
     public Date getReceivedDateTime() {
         return receivedDateTime;
     }
@@ -120,8 +151,6 @@ public class Mail implements Serializable {
         this.letterDateTime = letterDateTime;
     }
 
-    
-    
     public Institute getToInstitute() {
         return toInstitute;
     }
@@ -294,8 +323,6 @@ public class Mail implements Serializable {
     public Date getActionDate() {
         return actionDate;
     }
-    
-    
 
     public void setActionDate(Date actionDate) {
         this.actionDate = actionDate;

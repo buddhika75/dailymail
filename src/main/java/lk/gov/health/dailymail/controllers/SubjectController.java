@@ -114,6 +114,18 @@ public class SubjectController implements Serializable {
         ss = getFacade().findBySQL(j, m);
         return ss;
     }
+    
+    public List<Subject> getItems(WebUser user) {
+        List<Subject> ss;
+        String j="select s "
+                + " from Subject s "
+                + " where s.webUser=:wu "
+                + " order by s.name";
+        Map m = new HashMap();
+        m.put("wu", user);
+        ss = getFacade().findBySQL(j, m);
+        return ss;
+    }
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

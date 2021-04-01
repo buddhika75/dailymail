@@ -21,29 +21,39 @@
                         <p:calendar value="#{mailController.toDate}" pattern="dd MMMM yyyy" ></p:calendar>
                     </p:panelGrid>
 
-                    <p:panelGrid columns="4" >
-                        <p:commandButton value="List Mails" action="#{mailController.listSubjectMails()}" ajax="false" ></p:commandButton>
-                        <p:commandButton ajax="false" value="Print" >
-                            <p:printer target="tbl" ></p:printer>
-                        </p:commandButton>
-                        <p:commandButton ajax="false" value="Excel" >
-                            <p:dataExporter target="tbl"  type="xls" fileName="mails"></p:dataExporter>
-                        </p:commandButton>
+                    <p:panelGrid columns="2" >
+                        <p:commandButton  value="List Mails to Accept"
+                                          action="#{mailController.listMySubjectMailsToAccept()}" ajax="false" ></p:commandButton>
+
+
+                        <p:commandButton  value="Accept Selected Mails"
+                                          action="#{mailController.acceptMailsToSubject()}" ajax="false" ></p:commandButton>
+
                     </p:panelGrid>
 
 
 
 
 
-                    <p:dataTable id="tbl" value="#{mailController.items}" var="item" rowIndexVar="n" >
+                    <p:dataTable id="tbl"
+                                 value="#{mailController.items}"
+                                 selection="#{mailController.selectedItems}"
+                                 var="item" 
+                                 rowKey="#{item.id}"
+                                 rowIndexVar="n"
+                                 paginator="true"
+                                 rows="10">
+
                         <f:facet name="header" >
-                            <h:outputText value="Letters to SUbject"/><h:outputText value="#{mailController.subject.sname}"/>
+                            <h:outputText value="Letters to Accept"/><h:outputText value="#{mailController.subject.sname}"/>
                         </f:facet>
-                        <p:column width="30">
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                        <p:column width="40">
                             <f:facet name="header">
-                                <h:outputText value="අනු අංකය"/>
+                                <h:outputText value="Subject"/>
                             </f:facet>
-                            <h:outputText value="#{n+1}"/>
+                            <h:outputText value="#{item.subject.name}">
+                            </h:outputText>
                         </p:column>
                         <p:column width="80">
                             <f:facet name="header">

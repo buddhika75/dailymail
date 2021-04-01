@@ -20,18 +20,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lk.gov.health.dailymail.entity.Institute;
+import lk.gov.health.dailymail.entity.Subject;
 
 @Named
 @SessionScoped
 public class WebUserController implements Serializable {
 
     @EJB
-    private lk.gov.health.dailymail.facades.WebUserFacade ejbFacade;
+    private WebUserFacade ejbFacade;
+    
+    @Inject
+    SubjectController subjectController;
     private List<WebUser> items = null;
     private WebUser selected;
     WebUser loggedUser;
+    private List<Subject> loggedSubjects;
     String userName;
     String password;
     Institute loggedInstitute;
@@ -40,6 +46,8 @@ public class WebUserController implements Serializable {
         return "/webUser/index";
     }
 
+    
+    
     public String toViewUsers() {
         items = getFacade().findAll();
         return "/webUser/list";
@@ -162,6 +170,7 @@ public class WebUserController implements Serializable {
             JsfUtil.addErrorMessage("Wrong User Credentials");
             return "";
         }
+        loggedSubjects = subjectController.getItems(loggedUser);
         JsfUtil.addSuccessMessage("Successfully Logged");
         return "";
     }
@@ -297,6 +306,16 @@ public class WebUserController implements Serializable {
         return getFacade().findAll();
     }
 
+    public List<Subject> getLoggedSubjects() {
+        return loggedSubjects;
+    }
+
+    public void setLoggedSubjects(List<Subject> loggedSubjects) {
+        this.loggedSubjects = loggedSubjects;
+    }
+
+    
+    
     @FacesConverter(forClass = WebUser.class)
     public static class WebUserControllerConverter implements Converter {
 
