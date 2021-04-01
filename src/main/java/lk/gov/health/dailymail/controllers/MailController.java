@@ -345,6 +345,39 @@ public class MailController implements Serializable {
         items = getFacade().findBySQL(j, m);
 
     }
+    
+    public void listMySubjectMails() {
+        if(webUserController.getLoggedUser()==null){
+            JsfUtil.addErrorMessage("You sre not logged");
+            return ;
+        }
+         if(webUserController.getLoggedUser()==null){
+            JsfUtil.addErrorMessage("You sre not logged");
+            return ;
+        }
+        String j;
+        Map m = new HashMap();
+        j = "select m from Mail m "
+                + " where m.receivedDate between :fd and :td";
+        if (subject != null) {
+            j += " and m.subject=:s ";
+            m.put("s", subject);
+        }
+        j += " order by m.id";
+
+        TimeZone t = TimeZone.getTimeZone("Asia/Colombo");
+        Calendar fc = Calendar.getInstance(t);
+        fc.setTime(getFromDate());
+        //fc.add(Calendar.MINUTE, -330);
+        Calendar tc = Calendar.getInstance(t);
+        tc.setTime(getToDate());
+        //tc.add(Calendar.MINUTE, -330);
+        m.put("fd", fc.getTime());
+        m.put("td", tc.getTime());
+
+        items = getFacade().findBySQL(j, m);
+
+    }
 
     public String listUnassignedAndAssignedDeptMails() {
         String j;

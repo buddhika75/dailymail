@@ -12,34 +12,35 @@
             <h:form id="SubjectEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{subjectController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSubjectLabel_institute}" />
+                        <p:outputLabel value="#{subjectController.selected.institute.name}"  />
+
+
                         <p:outputLabel value="#{bundle.CreateSubjectLabel_name}" for="name" />
                         <p:inputText id="name" value="#{subjectController.selected.name}" title="#{bundle.CreateSubjectTitle_name}" />
-                        <p:outputLabel value="#{bundle.CreateSubjectLabel_sname}" for="sname" />
-                        <p:inputText id="sname" value="#{subjectController.selected.sname}" title="#{bundle.CreateSubjectTitle_sname}" />
-                        <p:outputLabel value="#{bundle.CreateSubjectLabel_tname}" for="tname" />
-                        <p:inputText id="tname" value="#{subjectController.selected.tname}" title="#{bundle.CreateSubjectTitle_tname}" />
-                        <p:outputLabel value="#{bundle.CreateSubjectLabel_code}" for="code" />
-                        <p:inputText id="code" value="#{subjectController.selected.code}" title="#{bundle.CreateSubjectTitle_code}" />
+
+
+
                         <p:outputLabel value="#{bundle.CreateSubjectLabel_department}" for="department" />
                         <p:selectOneMenu id="department" value="#{subjectController.selected.department}" >
-                            <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                            <p:ajax process="@this" update="webUser" ></p:ajax>
+                            <f:selectItems value="#{subjectController.departments}"
                                            var="departmentItem"
                                            itemValue="#{departmentItem}" itemLabel="#{departmentItem.name}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateSubjectLabel_institute}" for="institute" />
-                        <p:selectOneMenu id="institute" value="#{subjectController.selected.institute}" >
-                            <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
-                                           var="instituteItem" itemLabel="#{instituteItem.name}"
-                                           itemValue="#{instituteItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateSubjectLabel_webUser}" for="webUser" />
+
+
+                        <p:outputLabel value="User:" for="webUser" />
                         <p:selectOneMenu id="webUser" value="#{subjectController.selected.webUser}" >
-                            <f:selectItems value="#{webUserController.itemsAvailableSelectOne}"
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                            <f:selectItems value="#{subjectController.users}"
                                            var="webUserItem" itemLabel="#{webUserItem.name}"
                                            itemValue="#{webUserItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{subjectController.update}" value="#{bundle.Save}" update="display,:SubjectListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SubjectEditDialog');"/>
+                    <p:commandButton action="#{subjectController.update}" value="#{bundle.Save}"
+                                     ajax="false"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="SubjectEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

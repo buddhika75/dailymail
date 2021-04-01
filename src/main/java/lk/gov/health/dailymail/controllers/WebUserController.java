@@ -49,7 +49,7 @@ public class WebUserController implements Serializable {
         selected = new WebUser();
         return "/webUser/add_user";
     }
-    
+
     public String toEditUser() {
         return "/webUser/edit_user";
     }
@@ -65,13 +65,13 @@ public class WebUserController implements Serializable {
     public String toChangeMyPassword() {
         return "/webUser/my_password";
     }
-    
-    public String activateUser(){
-        if(selected==null){
+
+    public String activateUser() {
+        if (selected == null) {
             JsfUtil.addErrorMessage("Nothing selected");
             return "";
         }
-        if(selected.isActive()){
+        if (selected.isActive()) {
             JsfUtil.addErrorMessage("Already active.");
             return "";
         }
@@ -81,13 +81,13 @@ public class WebUserController implements Serializable {
         selected = null;
         return toViewUsers();
     }
-    
-    public String deactivateUser(){
-        if(selected==null){
+
+    public String deactivateUser() {
+        if (selected == null) {
             JsfUtil.addErrorMessage("Nothing selected");
             return "";
         }
-        if(!selected.isActive()){
+        if (!selected.isActive()) {
             JsfUtil.addErrorMessage("Already deactive.");
             return "";
         }
@@ -97,30 +97,36 @@ public class WebUserController implements Serializable {
         selected = null;
         return toViewUsers();
     }
-    
-    public void saveUser(){
+
+    public void saveUser() {
         saveUser(selected);
     }
-    
-    public void saveUser(WebUser wu){
-        if(wu==null){
+
+    public void saveUser(WebUser wu) {
+        if (wu == null) {
             JsfUtil.addSuccessMessage("Nothing to save.");
             return;
         }
-        if(wu.getId()==null){
+        if (wu.getId() == null) {
             getFacade().create(wu);
             JsfUtil.addSuccessMessage("Saved");
-        }else{
+        } else {
             getFacade().edit(wu);
             JsfUtil.addSuccessMessage("Updated");
         }
     }
 
     public Institute getLoggedInstitute() {
+        if (getLoggedUser() == null) {
+            loggedInstitute = null;
+        } else {
+            loggedInstitute = getLoggedUser().getInstitute();
+        }
         return loggedInstitute;
     }
 
     public void setLoggedInstitute(Institute loggedInstitute) {
+
         this.loggedInstitute = loggedInstitute;
     }
 
@@ -241,6 +247,18 @@ public class WebUserController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public List<WebUser> getItems(Institute ins) {
+        List<WebUser> us;
+        String j = "select u "
+                + " from WebUser u "
+                + " where u.institute=:ins "
+                + " order by u.name";
+        Map m = new HashMap();
+        m.put("ins", ins);
+        us = getFacade().findBySQL(j, m);
+        return us;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

@@ -6,7 +6,9 @@ import lk.gov.health.dailymail.controllers.util.JsfUtil.PersistAction;
 import lk.gov.health.dailymail.facades.SubjectFacade;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,21 +19,38 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.inject.Named;
+import lk.gov.health.dailymail.entity.Department;
+import lk.gov.health.dailymail.entity.WebUser;
 
-@Named(value = "subjectController")
+@Named
 @SessionScoped
 public class SubjectController implements Serializable {
 
     @EJB
-    private lk.gov.health.dailymail.facades.SubjectFacade ejbFacade;
+    private SubjectFacade ejbFacade;
+
+    @Inject
+    DepartmentController departmentController;
+
+    @Inject
+    WebUserController webUserController;
+
     private List<Subject> items = null;
     private Subject selected;
+    private List<Department> departments;
+    private List<WebUser> users;
 
     public SubjectController() {
     }
 
     public Subject getSelected() {
+        if(selected!=null){
+            if(selected.getInstitute()==null){
+                selected.setInstitute(webUserController.getLoggedInstitute());
+            }
+        }
         return selected;
     }
 
@@ -51,6 +70,7 @@ public class SubjectController implements Serializable {
 
     public Subject prepareCreate() {
         selected = new Subject();
+        selected.setInstitute(webUserController.getLoggedInstitute());
         initializeEmbeddableKey();
         return selected;
     }
@@ -79,6 +99,20 @@ public class SubjectController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public List<Subject> getItems(Department dep) {
+        List<Subject> ss;
+        String j="select s "
+                + " from Subject s "
+                + " where s.retired=:ret "
+                + " and s.department=:dep "
+                + " order by s.name";
+        Map m = new HashMap();
+        m.put("ret", false);
+        m.put("dep", dep);
+        ss = getFacade().findBySQL(j, m);
+        return ss;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -115,6 +149,32 @@ public class SubjectController implements Serializable {
 
     public List<Subject> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public List<Department> getDepartments() {
+        if (selected == null || selected.getInstitute() == null) {
+            departments = null;
+        } else {
+            departments = departmentController.getItems( selected.getInstitute());
+        }
+        return departments;
+    }
+
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
+    }
+
+    public List<WebUser> getUsers() {
+        if (selected == null || selected.getInstitute()== null) {
+            users = null;
+        } else {
+            users = webUserController.getItems(selected.getInstitute());
+        }
+        return users;
+    }
+
+    public void setUsers(List<WebUser> users) {
+        this.users = users;
     }
 
     @FacesConverter(forClass = Subject.class)

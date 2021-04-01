@@ -109,6 +109,18 @@ public class DepartmentController implements Serializable {
         }
         return items;
     }
+    
+    public List<Department> getItems(Institute ins) {
+        List<Department> deps;
+        String j = "Select d "
+                + " from Department d "
+                + " where d.institute=:ins "
+                + " order by d.name";
+        Map m = new HashMap();
+        m.put("ins", ins);
+        deps=getFacade().findBySQL(j, m);
+        return deps;
+    }
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

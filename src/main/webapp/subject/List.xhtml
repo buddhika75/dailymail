@@ -27,54 +27,36 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column width="60"
+                                  sortBy="#{item.name}"
+                                  filterBy="#{item.name}" 
+                                  filterMatchMode="contains"
+                                  filterStyle="width:50px;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubjectTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_sname}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.sname}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_tname}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tname}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_code}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.code}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_department}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.department}"/>
-                        </p:column>
-                        <p:column>
+                        <p:column  sortBy="#{item.institute.name}" filterBy="#{item.institute.name}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubjectTitle_institute}"/>
                             </f:facet>
-                            <h:outputText value="#{item.institute}"/>
+                            <h:outputText value="#{item.institute.name}"/>
                         </p:column>
-                        <p:column>
+                        <p:column  sortBy="#{item.department.name}" filterBy="#{item.department.name}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubjectTitle_department}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.department.name}"/>
+                        </p:column>
+
+                        <p:column  sortBy="#{item.webUser.name}" filterBy="#{item.webUser.name}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubjectTitle_webUser}"/>
                             </f:facet>
-                            <h:outputText value="#{item.webUser}"/>
+                            <h:outputText value="#{item.webUser.name}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubjectTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{subjectController.prepareCreate}" update=":SubjectCreateForm" oncomplete="PF('SubjectCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SubjectViewForm" oncomplete="PF('SubjectViewDialog').show()" disabled="#{empty subjectController.selected}"/>
