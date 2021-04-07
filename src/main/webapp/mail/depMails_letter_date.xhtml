@@ -31,7 +31,7 @@
                             <p:commandButton ajax="false" value="Excel" >
                                 <p:dataExporter target="tbl"  type="xls" fileName="mails"></p:dataExporter>
                             </p:commandButton>
-                            
+
                             <p:dataTable id="tbl" value="#{mailController.items}" var="item" rowIndexVar="n" >
                                 <f:facet name="header" >
                                     <h:outputText value="අායතනයට ලැෙබන ලිපි - "/><h:outputText value="#{mailController.department.sname}"/>
@@ -70,19 +70,19 @@
                                         <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
                                     </h:outputText>
                                 </p:column>
-                                <p:column width="80">
-                                    <f:facet name="header">
-                                        <h:outputText value="ලියාපදිංචි අංකය"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.registeredNumber}"/>
-                                </p:column>
+                                <!--                                <p:column width="80">
+                                                                    <f:facet name="header">
+                                                                        <h:outputText value="ලියාපදිංචි අංකය"/>
+                                                                    </f:facet>
+                                                                    <h:outputText value="#{item.registeredNumber}"/>
+                                                                </p:column>-->
                                 <p:column width="150">
                                     <f:facet name="header">
                                         <h:outputText value="අායතනය"/>
                                     </f:facet>
                                     <h:outputText value="#{item.sendingInstitute.sname}"/>
                                 </p:column>
-                                <p:column >
+                                <p:column width="80" >
                                     <f:facet name="header">
                                         <h:outputText value="ෙයාමු අංකය"/>
                                     </f:facet>
@@ -115,7 +115,7 @@
                             </p:dataTable>
 
                             <p:commandButton ajax="false" value="Update" action="#{mailController.addTime()}" ></p:commandButton>
-                            
+
                         </h:form>
                     </f:view>
 

@@ -49,7 +49,8 @@
                             <p:autoComplete id="sendingInstitute" value="#{mailController.selected.sendingInstitute}"
                                             var="i" itemLabel="#{i.name}" itemValue="#{i}" 
                                             completeMethod="#{instituteController.completeInstitutes}"
-                                            forceSelection="true"  size="50"  >
+                                            forceSelection="true"  size="60" maxResults="20"
+                                            minQueryLength="3">
                                 <p:column >
                                     <p:outputLabel value="#{i.name}" ></p:outputLabel>
                                 </p:column>

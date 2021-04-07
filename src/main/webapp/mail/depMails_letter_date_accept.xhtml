@@ -79,19 +79,19 @@
                                 <f:convertDateTime pattern="dd/MMM/yy" timeZone="Asia/Colombo" />
                             </h:outputText>
                         </p:column>
-                        <p:column width="80">
+<!--                        <p:column width="80">
                             <f:facet name="header">
                                 <h:outputText value="ලියාපදිංචි අංකය"/>
                             </f:facet>
                             <h:outputText value="#{item.registeredNumber}"/>
-                        </p:column>
+                        </p:column>-->
                         <p:column width="150">
                             <f:facet name="header">
                                 <h:outputText value="අායතනය"/>
                             </f:facet>
                             <h:outputText value="#{item.sendingInstitute.sname}"/>
                         </p:column>
-                        <p:column >
+                        <p:column width="40" >
                             <f:facet name="header">
                                 <h:outputText value="ෙයාමු අංකය"/>
                             </f:facet>
@@ -109,7 +109,7 @@
                             </f:facet>
                             <h:outputText value="#{item.executiveOfficer}"/>
                         </p:column>
-                        <p:column sortBy="#{item.accepted}">
+                        <p:column sortBy="#{item.accepted}" width="80">
                             <f:facet name="header">
                                 <h:outputText value="Accepted By"/>
                             </f:facet>
