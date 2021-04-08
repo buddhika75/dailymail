@@ -13,86 +13,103 @@
             <ui:define name="body">
                 <h:form id="MailCreateForm">
 
-                    <p:panel header="Add New Mail"  >
+
+
+                    <p:panelGrid columns="3" rendered="#{mailController.selected != null}">
                         <f:facet name="header" >
-                            <p:outputLabel value="Add New Mail" ></p:outputLabel>
-                        </f:facet>
-                        <p:panelGrid columns="2" >
-                            <p:autoComplete value="#{mailController.selected.toInstitute}"
-                                            var="ii" itemLabel="#{ii.name}" itemValue="#{ii}" completeMethod="#{instituteController.completeInstitutes}"
-                                            forceSelection="true" size="50" >
-                            </p:autoComplete>
+                            <p:outputLabel value="නව ලිපියක් ඇතුළු කිරීම" ></p:outputLabel>
+                            <p:spacer height="1" width="30" ></p:spacer>
                             <p:commandButton action="#{mailController.saveNewMail()}" value="#{bundle.Save}" ajax="false" />
+                        </f:facet>
+                        <p:outputLabel value="අපගේ ආයතනය" ></p:outputLabel>
+                        <p:outputLabel value="#{mailController.selected.toInstitute.name}" >
+                        </p:outputLabel>
+                        <p:spacer></p:spacer>
 
-                        </p:panelGrid>
-                        <p:panelGrid columns="2" rendered="#{mailController.selected != null}">
-
-
-                            <p:outputLabel value="කේත අංකය" for="codeNumber" />
-                            <p:inputText id="codeNumber" value="#{mailController.selected.codeNo}"  styleClass="longText"  title="#{bundle.CreateMailTitle_sendingNumber}" />
-
-                            <p:outputLabel value="#{bundle.CreateMailLabel_receivedDate}" for="receivedDate" />
-                            <p:calendar  id="receivedDate" pattern="dd MMMM yyyy" value="#{mailController.selected.receivedDateTime}" title="#{bundle.EditMailTitle_receivedDate}"  showOn="button" timeZone="Asia/Colombo"  >
-                                <f:ajax execute="@this" event="blur" ></f:ajax>
-                            </p:calendar>
-
-
-                            <p:outputLabel value="#{bundle.CreateMailLabel_letterDate}" for="letterDate" />
-                            <p:calendar  id="letterDate" pattern="dd MMMM yyyy" value="#{mailController.selected.letterDateTime}" title="#{bundle.EditMailTitle_letterDate}"  showOn="button"  timeZone="Asia/Colombo"   >
-                                <f:ajax execute="@this" event="blur" ></f:ajax>
-                            </p:calendar>
-                            <p:outputLabel value="#{bundle.CreateMailLabel_registered}" for="registered" />
-                            <p:selectBooleanCheckbox id="registered" value="#{mailController.selected.registered}" />
-                            <p:outputLabel value="#{bundle.CreateMailLabel_registeredNumber}" for="registeredNumber" />
-                            <p:inputText id="registeredNumber" value="#{mailController.selected.registeredNumber}" title="#{bundle.CreateMailTitle_registeredNumber}" />
-                            <p:outputLabel value="#{bundle.CreateMailLabel_sendingInstitute}" for="sendingInstitute" />
-                            <p:autoComplete id="sendingInstitute" value="#{mailController.selected.sendingInstitute}"
-                                            var="i" itemLabel="#{i.name}" itemValue="#{i}" 
-                                            completeMethod="#{instituteController.completeInstitutes}"
-                                            forceSelection="true"  size="60" maxResults="20"
-                                            minQueryLength="3">
-                                <p:column >
-                                    <p:outputLabel value="#{i.name}" ></p:outputLabel>
-                                </p:column>
-                                <p:column >
-                                    <p:outputLabel value="#{i.sname}" ></p:outputLabel>
-                                </p:column>
-                                <p:column >
-                                    <p:outputLabel value="#{i.tname}" ></p:outputLabel>
-                                </p:column>
-                            </p:autoComplete>
-
-                            <p:outputLabel value="#{bundle.CreateMailLabel_sendingNumber}" for="sendingNumber" />
-                            <p:inputText id="sendingNumber" value="#{mailController.selected.sendingNumber}"  styleClass="longText"  title="#{bundle.CreateMailTitle_sendingNumber}" />
+                        <p:outputLabel value="කේත අංකය" for="codeNumber" />
+                        <p:inputText id="codeNumber" autocomplete="off"
+                                     value="#{mailController.selected.codeNo}"  
+                                     styleClass="longText"  
+                                     title="#{bundle.CreateMailTitle_sendingNumber}" >
+                            <f:ajax listener="#{mailController.checkCodeExists()}" execute="codeNumber" event="blur" render="lblCodeError" ></f:ajax>
+                        </p:inputText>
+                        <p:outputLabel id="lblCodeError" value="#{mailController.selected.codeExistsMessageTrnas}" style="color: red;" ></p:outputLabel>
 
 
-                            <p:outputLabel value="#{bundle.CreateMailLabel_topic}" for="topic" />
-                            <p:inputText id="topic" value="#{mailController.selected.topic}"  styleClass="longText"  title="#{bundle.CreateMailTitle_topic}" />
+                        <p:outputLabel value="#{bundle.CreateMailLabel_receivedDate}" for="receivedDate" />
+                        <p:calendar autocomplete="off"  id="receivedDate" pattern="dd MMMM yyyy" value="#{mailController.selected.receivedDateTime}" title="#{bundle.EditMailTitle_receivedDate}"  showOn="button" timeZone="Asia/Colombo"  >
+                            <f:ajax execute="@this" event="blur" ></f:ajax>
+                        </p:calendar>
+                        <p:outputLabel value="" ></p:outputLabel>
 
 
-                            <p:outputLabel value="අංශය"  />
-                            <p:selectOneButton id="cmdDep" value="#{mailController.selected.toDepartment}"  >
-                                <f:selectItems value="#{mailController.myDepartnments}"
-                                               var="subjectItem"
-                                               itemValue="#{subjectItem}"
-                                               itemLabel="#{subjectItem.name}"/>
-                                <p:ajax process="@this" update="cmbSub" ></p:ajax>
-                            </p:selectOneButton>
+                        <p:outputLabel value="#{bundle.CreateMailLabel_letterDate}" for="letterDate" />
+                        <p:calendar autocomplete="off"  id="letterDate" pattern="dd MMMM yyyy" value="#{mailController.selected.letterDateTime}" title="#{bundle.EditMailTitle_letterDate}"  showOn="button"  timeZone="Asia/Colombo"   >
+                            <f:ajax execute="@this" event="blur" ></f:ajax>
+                        </p:calendar>
+                        <p:outputLabel value="" ></p:outputLabel>
 
-                            <p:outputLabel value="විෂය"  />
-                            <p:selectOneButton id="cmbSub" value="#{mailController.selected.subject}"  >
-                                <f:selectItems value="#{mailController.mySubjects}"
-                                               var="s"
-                                               itemValue="#{s}"
-                                               itemLabel="#{s.name}"/>
-                            </p:selectOneButton>
+                        <p:outputLabel value="#{bundle.CreateMailLabel_registered}" for="registered" />
+                        <p:selectBooleanCheckbox id="registered" value="#{mailController.selected.registered}" />
+                        <p:outputLabel value="" ></p:outputLabel>
+
+                        <p:outputLabel value="#{bundle.CreateMailLabel_registeredNumber}" for="registeredNumber" />
+                        <p:inputText id="registeredNumber" autocomplete="off" value="#{mailController.selected.registeredNumber}" title="#{bundle.CreateMailTitle_registeredNumber}" />
+                        <p:outputLabel value="" ></p:outputLabel>
+
+                        <p:outputLabel value="#{bundle.CreateMailLabel_sendingInstitute}" for="sendingInstitute" />
+                        <p:autoComplete autocomplete="off" id="sendingInstitute" value="#{mailController.selected.sendingInstitute}"
+                                        var="i" itemLabel="#{i.name}" itemValue="#{i}" 
+                                        completeMethod="#{instituteController.completeInstitutes}"
+                                        forceSelection="true"  size="60" maxResults="20"
+                                        minQueryLength="3">
+                            <p:column >
+                                <p:outputLabel value="#{i.name}" ></p:outputLabel>
+                            </p:column>
+                            <p:column >
+                                <p:outputLabel value="#{i.sname}" ></p:outputLabel>
+                            </p:column>
+                            <p:column >
+                                <p:outputLabel value="#{i.tname}" ></p:outputLabel>
+                            </p:column>
+                        </p:autoComplete>
+                        <p:outputLabel value="" ></p:outputLabel>
+
+                        <p:outputLabel value="#{bundle.CreateMailLabel_sendingNumber}" for="sendingNumber" />
+                        <p:inputText id="sendingNumber" autocomplete="off" value="#{mailController.selected.sendingNumber}"  styleClass="longText"  title="#{bundle.CreateMailTitle_sendingNumber}" />
+                        <p:outputLabel value="" ></p:outputLabel>
+
+
+                        <p:outputLabel value="#{bundle.CreateMailLabel_topic}" for="topic" />
+                        <p:inputText id="topic" autocomplete="off" value="#{mailController.selected.topic}"  styleClass="longText"  title="#{bundle.CreateMailTitle_topic}" />
+                        <p:outputLabel value="" ></p:outputLabel>
+
+
+                        <p:outputLabel value="අංශය"  />
+                        <p:selectOneButton id="cmdDep" value="#{mailController.selected.toDepartment}"  >
+                            <f:selectItems value="#{mailController.myDepartnments}"
+                                           var="subjectItem"
+                                           itemValue="#{subjectItem}"
+                                           itemLabel="#{subjectItem.name}"/>
+                            <p:ajax process="@this" update="cmbSub" ></p:ajax>
+                        </p:selectOneButton>
+                        <p:outputLabel value="" ></p:outputLabel>
+
+                        <p:outputLabel value="විෂය"  />
+                        <p:selectOneButton id="cmbSub" value="#{mailController.selected.subject}"  >
+                            <f:selectItems value="#{mailController.mySubjects}"
+                                           var="s"
+                                           itemValue="#{s}"
+                                           itemLabel="#{s.name}"/>
+                        </p:selectOneButton>
+                        <p:outputLabel value="" ></p:outputLabel>
 
 
 
-                        </p:panelGrid>
+                    </p:panelGrid>
 
 
-                    </p:panel>
+
 
                 </h:form>
 

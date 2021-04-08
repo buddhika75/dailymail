@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -90,6 +91,11 @@ public class Mail implements Serializable {
     Department toDepartment;
     @Lob
     private String actionsTaken;
+    
+    @Transient
+    private String codeExistsMessageTrnas;
+    
+    
 
     public boolean isAccepted() {
         return accepted;
@@ -358,6 +364,14 @@ public class Mail implements Serializable {
 
     public void setAssignedUser(WebUser assignedUser) {
         this.assignedUser = assignedUser;
+    }
+
+    public String getCodeExistsMessageTrnas() {
+        return codeExistsMessageTrnas;
+    }
+
+    public void setCodeExistsMessageTrnas(String codeExistsMessageTrnas) {
+        this.codeExistsMessageTrnas = codeExistsMessageTrnas;
     }
 
 }

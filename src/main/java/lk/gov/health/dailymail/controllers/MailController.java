@@ -72,6 +72,28 @@ public class MailController implements Serializable {
         }
         return myDepartnments;
     }
+    
+    public void checkCodeExists(){
+        if(selected==null){
+            return;
+        }
+        if(selected.getCodeNo()==null || selected.getCodeNo().trim().equals("")){
+            selected.setCodeExistsMessageTrnas(null);
+            return;
+        }
+        String j = "select m "
+                + " from Mail m"
+                + " where m.codeNo=:c"
+                + " order by m.id desc";
+        Map m =new HashMap();
+        m.put("c", selected.getCodeNo());
+        Mail tm = getFacade().findFirstBySQL(j, m);
+        if(tm!=null){
+            selected.setCodeExistsMessageTrnas("Code number already exists");
+        }else{
+            selected.setCodeExistsMessageTrnas(null);
+        }
+    }
 
     public List<Subject> getMySubjects() {
         if (selected == null || selected.getToDepartment() == null) {

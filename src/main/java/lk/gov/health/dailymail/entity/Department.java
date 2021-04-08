@@ -30,6 +30,9 @@ public class Department implements Serializable {
     Institute institute;
 
     public String getSname() {
+        if (sname == null || sname.trim().equals("")) {
+            sname = name;
+        }
         return sname;
     }
 
@@ -38,6 +41,9 @@ public class Department implements Serializable {
     }
 
     public String getTname() {
+        if(tname==null||tname.trim().equals("")){
+            tname=name;
+        }
         return tname;
     }
 
@@ -45,8 +51,6 @@ public class Department implements Serializable {
         this.tname = tname;
     }
 
-    
-    
     public String getName() {
         return name;
     }
@@ -63,9 +67,6 @@ public class Department implements Serializable {
         this.institute = institute;
     }
 
-    
-    
-    
     public Long getId() {
         return id;
     }

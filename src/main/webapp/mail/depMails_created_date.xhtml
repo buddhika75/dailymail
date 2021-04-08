@@ -15,21 +15,19 @@
 
 
                     <p:panel header="පරිගණකයට ඇතුළු කරන ලද දිනය අනුව අංශයට ලැබෙන ලිපි ලැයිස්තුව" >
-                        <h:panelGrid columns="5" >
+                        <p:panelGrid columns="2" >
                             <p:outputLabel value="අංශය" ></p:outputLabel>
                             <p:selectOneMenu value="#{mailController.department}" >
                                 <f:selectItem itemLabel="අංශය තෝරන්න" ></f:selectItem>
                                 <f:selectItems value="#{departmentController.itemsAvailableSelectOne}" var="ins" itemLabel="#{ins.sname}" itemValue="#{ins}" ></f:selectItems>
                             </p:selectOneMenu>
-                            <p:spacer height="1" width="10" ></p:spacer>
-
 
                             <p:outputLabel value="ලිපිය පරිගණක ගත කරන ලද දිනය" ></p:outputLabel>
                             <p:calendar value="#{mailController.fromDate}" pattern="dd MMMM yyyy" timeZone="Asia/Colombo" ></p:calendar>
 
 
-                        </h:panelGrid>
-                        <h:panelGrid columns="3" >
+                        </p:panelGrid>
+                        <p:panelGrid columns="3" >
                             <p:commandButton value="ලැයිස්තු ගත කරන්න" action="#{mailController.listDeptMailsDailyByEnteredDate()}" ajax="false" ></p:commandButton>
 
                             <p:commandButton ajax="false" value="මෙම ලැයිස්තුව මුද්‍රණය කරන්න" >
@@ -39,13 +37,16 @@
                                 <p:dataExporter target="tbl"  type="xls" fileName="mails"></p:dataExporter>
                             </p:commandButton>
 
-                        </h:panelGrid>
+                        </p:panelGrid>
 
                         <p:dataTable id="tbl" value="#{mailController.items}" var="item" 
                                      rowIndexVar="n" >
                             <f:facet name="header" >
-                                <h:outputText value="පරිගණකයට ඇතුළු කරන ලද දිනය අනුව අංශයට ලැබෙන ලිපි ලැයිස්තුව - "/>
-                                <h:outputText value="#{mailController.department.sname} - "/>
+                                <h:outputText value="පරිගණකයට ඇතුළු කරන ලද දිනය අනුව අංශයට ලැබෙන ලිපි ලැයිස්තුව"/>
+                                <br/>
+                                <h:outputText value="අංශය : #{mailController.department.sname}"/>
+                                <br/>
+                                <h:outputText value="ලිපිය පරිගණක ගත කරන ලද දිනය : "/>
                                 <h:outputText value="#{mailController.fromDate}">
                                     <f:convertDateTime pattern="dd MMMM yyyy" timeZone="Asia/Colombo" ></f:convertDateTime>
                                 </h:outputText>
