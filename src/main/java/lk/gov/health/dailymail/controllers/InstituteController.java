@@ -20,7 +20,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 
-@Named(value = "instituteController")
+@Named
 @SessionScoped
 public class InstituteController implements Serializable {
 

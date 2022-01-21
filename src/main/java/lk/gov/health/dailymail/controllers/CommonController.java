@@ -17,7 +17,7 @@ import lk.gov.health.dailymail.enums.Role;
  *
  * @author pdhssp
  */
-@Named(value = "commonController")
+@Named
 @SessionScoped
 public class CommonController implements Serializable {
 

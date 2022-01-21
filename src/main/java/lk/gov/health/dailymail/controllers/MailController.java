@@ -32,7 +32,7 @@ import lk.gov.health.dailymail.entity.Subject;
 import lk.gov.health.dailymail.facades.DepartmentFacade;
 import lk.gov.health.dailymail.facades.SubjectFacade;
 
-@Named(value = "mailController")
+@Named
 @SessionScoped
 public class MailController implements Serializable {
 

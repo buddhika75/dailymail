@@ -26,7 +26,7 @@
 
                 <div class="ui-grid-col-12">
                     <p:graphicImage style="width: 100%; margin: auto;"
-                        rendered="#{webUserController.loggedUser eq null}" library="images" name="banner.jpg" ></p:graphicImage>
+                                    rendered="#{webUserController.loggedUser eq null}" library="images" name="banner.jpg" ></p:graphicImage>
                 </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{webUserController.loggedUser ne null}" >
@@ -38,6 +38,33 @@
                 <h:panelGroup rendered="#{webUserController.loggedUser eq null}" >
                     <ez:login/>
                 </h:panelGroup>
+
+                <h:panelGroup rendered="true" >
+                    <h:form >
+                        <h:panelGrid columns="1" >
+
+                            <h:outputLabel value="Name" ></h:outputLabel>
+                            <h:inputText value="#{webUserController.name}" ></h:inputText>
+
+                            <h:outputLabel value="Username" ></h:outputLabel>
+                            <h:inputText value="#{webUserController.userName}" ></h:inputText>
+
+                            <h:outputLabel value="Password" ></h:outputLabel>
+                            <h:inputText value="#{webUserController.userName}" ></h:inputText>
+
+                            <h:outputLabel value="Institution" ></h:outputLabel>
+                            <h:inputText value="#{webUserController.institutionName}" ></h:inputText>
+
+                            <h:outputLabel value="Department" ></h:outputLabel>
+                            <h:inputText value="#{webUserController.departmentName}" ></h:inputText>
+
+                            <h:commandButton value="Create the First User" action="#{webUserController.createTheFirstUser()}" ></h:commandButton>
+                            
+                            
+                        </h:panelGrid>
+                    </h:form>
+                </h:panelGroup>
+
                 <h:panelGroup rendered="#{webUserController.loggedUser ne null}" >
                     <ui:insert name="body"> </ui:insert>
                 </h:panelGroup>

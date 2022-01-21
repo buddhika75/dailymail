@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lk.gov.health.thk</groupId>
-    <artifactId>dailyMail2021</artifactId>
+    <artifactId>fmis</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
 
-    <name>dailyMail2021</name>
+    <name>fmis</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lk.gov.health.dailymail.entity.Institute;
 
-@Named(value = "departmentController")
+@Named
 @SessionScoped
 public class DepartmentController implements Serializable {
 

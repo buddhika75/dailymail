@@ -22,24 +22,37 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lk.gov.health.dailymail.entity.Department;
 import lk.gov.health.dailymail.entity.Institute;
 import lk.gov.health.dailymail.entity.Subject;
+import lk.gov.health.dailymail.enums.Role;
+import lk.gov.health.dailymail.facades.DepartmentFacade;
+import lk.gov.health.dailymail.facades.InstituteFacade;
+import org.bouncycastle.asn1.x509.sigi.PersonalData;
 
 @Named
 @SessionScoped
 public class WebUserController implements Serializable {
 
     @EJB
-    private WebUserFacade ejbFacade;
+    private WebUserFacade webUserFacade;
+    @EJB
+    InstituteFacade instituteFacade;
+    @EJB
+    DepartmentFacade departmentFacade;
+  
     
     @Inject
-    SubjectController subjectController;
+    private SubjectController subjectController;
     private List<WebUser> items = null;
     private WebUser selected;
     WebUser loggedUser;
     private List<Subject> loggedSubjects;
+    private String name;
     String userName;
     String password;
+    private String institutionName;
+    private String departmentName;
     Institute loggedInstitute;
 
     public String toManageUsers() {
@@ -223,7 +236,7 @@ public class WebUserController implements Serializable {
     }
 
     private WebUserFacade getFacade() {
-        return ejbFacade;
+        return webUserFacade;
     }
 
     public WebUser prepareCreate() {
@@ -256,6 +269,28 @@ public class WebUserController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public void createTheFirstUser(){
+        Institute ins = new Institute();
+        ins.setName(institutionName);
+        instituteFacade.create(ins);
+        
+        Department dept = new Department();
+        dept.setName(departmentName);
+        dept.setInstitute(ins);
+        departmentFacade.create(dept);
+        
+        WebUser wu = new WebUser();
+        wu.setDepartment(dept);
+        wu.setUserName(userName);
+        wu.setActive(true);
+        wu.setUserRole(Role.Administrator);
+        
+        webUserFacade.create(wu);
+        
+        JsfUtil.addSuccessMessage("Created");
+        
     }
 
     public List<WebUser> getItems(Institute ins) {
@@ -314,6 +349,48 @@ public class WebUserController implements Serializable {
         this.loggedSubjects = loggedSubjects;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public SubjectController getSubjectController() {
+        return subjectController;
+    }
+
+    public void setSubjectController(SubjectController subjectController) {
+        this.subjectController = subjectController;
+    }
+
+    public String getInstitutionName() {
+        return institutionName;
+    }
+
+    public void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public WebUserFacade getWebUserFacade() {
+        return webUserFacade;
+    }
+
+    public void setWebUserFacade(WebUserFacade webUserFacade) {
+        this.webUserFacade = webUserFacade;
+    }
+
+    
+    
     
     
     @FacesConverter(forClass = WebUser.class)
